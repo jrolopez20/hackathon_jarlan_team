@@ -13,12 +13,6 @@ Here's our first attempt at using data to create a table:
 import pandas as pd
 import streamlit as st
 
-train = pd.read_csv('/input/train.csv')
-test = pd.read_csv('/input/test.csv')
-train.head()
-
-
-
 df = pd.DataFrame({
   'first column': [1, 2, 3, 4],
   'second column': [10, 20, 30, 40]
