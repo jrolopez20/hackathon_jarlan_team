@@ -10,7 +10,7 @@ st.sidebar.write("""
 st.sidebar.title('Interactive options:')
 
 st.sidebar.write("""
-	Develped by **Jarlan Team** \n
+	Developed by **Jarlan Team** \n
 	*© 2022 [Universidad Autónoma de Chihuahua](https://uach.mx)*
 	""")
 
