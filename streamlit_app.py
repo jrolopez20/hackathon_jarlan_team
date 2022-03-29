@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Mar 22 21:10:29 2022
-
-@author: Javier
-"""
-
-"""
-# Credit default prediction
-Here's our first attempt at using data to create a table:
-"""
-
 import pandas as pd
 import streamlit as st
+
+st.sidebar.write("""
+	# *Project name*
+	Project description goes here 
+	""")
+	
+st.sidebar.title('Interactive options:')
+
+st.sidebar.write("""
+	Develped by **Jarlan Team** \n
+	*© 2022 [Universidad Autónoma de Chihuahua](https://uach.mx)*
+	""")
+
+st.title('TODO')
 
 df = pd.DataFrame({
   'first column': [1, 2, 3, 4],

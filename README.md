@@ -1,4 +1,5 @@
-# Streamlit App for credit default prediction
+# Jarlan team
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+Source code for Hackathon competition
 
+You can see this app in action [here](https://share.streamlit.io/jrolopez20/hackathon_jarlan_team)
