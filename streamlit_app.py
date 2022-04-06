@@ -40,8 +40,8 @@ To = ct.date_input('To', datetime.strptime('2019-06-01', '%Y-%m-%d'), datetime.s
 
 # TODO, just for testing purpose
 c21, c22 = st.columns(2)
-c21.write(df_lack_water.columns)
-c22.write(df_water_leak.columns)
+c21.dataframe(df_lack_water.head())
+# c22.write(df_water_leak.columns)
 
 # Uncoment this line
 # hist = getData(From, To, pd.DateOffset(weeks=2), df_lack_water)
