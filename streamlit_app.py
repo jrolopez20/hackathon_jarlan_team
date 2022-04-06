@@ -38,9 +38,12 @@ From = pd.Timestamp('2018-06-01')
 To = pd.Timestamp('2019-06-01')
 
 # TODO, just for testing purpose
-c21, c22 = st.columns(2)
-c21.dataframe(df_lack_water.head())
-c22.dataframe(df_water_leak.head())
+# c21, c22 = st.columns(2)
+# c21.dataframe(df_lack_water.head())
+# c22.dataframe(df_water_leak.head())
+
+st.dataframe(df_lack_water.head())
+st.dataframe(df_water_leak.head())
 
 # Uncoment this line
 # hist = getData(From, To, pd.DateOffset(weeks=2), df_lack_water)
