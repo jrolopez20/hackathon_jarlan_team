@@ -16,10 +16,11 @@ st.sidebar.write("""
 
 st.sidebar.title('Interactive options:')
 
-st.sidebar.write("""
-	Developed by **Jarlan Team** \n
-	*© 2022 [Universidad Autónoma de Chihuahua](https://uach.mx)*
-	""")
+cf, ct = st.sidebar.columns(2)
+From = cf.date_input('From', datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2019-06-01', '%Y-%m-%d'))
+To = ct.date_input('To', datetime.strptime('2019-06-01', '%Y-%m-%d'), datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2019-06-01', '%Y-%m-%d'))
+
+
 
 """# Actual situation"""
 col1, col2 = st.columns(2)
@@ -34,9 +35,7 @@ with col2:
 
 """# So what is the problem?"""
 """## How to prevent water leaks efficiently"""
-cf, ct = st.sidebar.columns(2)
-From = cf.date_input('From', datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2019-06-01', '%Y-%m-%d'))
-To = ct.date_input('To', datetime.strptime('2019-06-01', '%Y-%m-%d'), datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2019-06-01', '%Y-%m-%d'))
+
 
 # TODO, just for testing purpose
 c21, c22 = st.columns(2)
@@ -53,3 +52,9 @@ c21.dataframe(df_lack_water.head())
 
 
 """TODO Here we will start displaying chart as part of our solution"""
+
+# Sidebar footer
+st.sidebar.write("""
+	Developed by **Jarlan Team** \n
+	*© 2022 [Universidad Autónoma de Chihuahua](https://uach.mx)*
+	""")
