@@ -10,8 +10,8 @@ from datetime import datetime
 # df_lack_water = pd.read_csv("./input/df_falta_agua.csv")
 # df_water_leak = pd.read_csv("./input/df_fuga_agua.csv")
 
-# with open('./input/df_falta_agua.pickle', 'rb') as handle:
-#     df_lack_water = pickle.load(handle)
+with open('./input/df_falta_agua.pickle', 'rb') as handle:
+    df_lack_water = pickle.load(handle)
 # with open('./input/df_fuga_agua.pickle', 'rb') as handle:
 #     df_water_leak = pickle.load(handle)
 
@@ -48,8 +48,8 @@ with col2:
 # c21.dataframe(df_lack_water.head())
 # c22.dataframe(df_water_leak.head())
 
-st.dataframe(df_lack_water.head())
-st.dataframe(df_water_leak.head())
+# st.dataframe(df_lack_water.head())
+# st.dataframe(df_water_leak.head())
 
 # Uncoment this line
 # hist = getData(From, To, pd.DateOffset(weeks=2), df_lack_water)
