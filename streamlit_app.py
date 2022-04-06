@@ -10,10 +10,10 @@ from datetime import datetime
 # df_lack_water = pd.read_csv("./input/df_falta_agua.csv")
 # df_water_leak = pd.read_csv("./input/df_fuga_agua.csv")
 
-with open('./input/df_falta_agua.pickle', 'rb') as handle:
-    df_lack_water = pickle.load(handle)
-with open('./input/df_fuga_agua.pickle', 'rb') as handle:
-    df_water_leak = pickle.load(handle)
+# with open('./input/df_falta_agua.pickle', 'rb') as handle:
+#     df_lack_water = pickle.load(handle)
+# with open('./input/df_fuga_agua.pickle', 'rb') as handle:
+#     df_water_leak = pickle.load(handle)
 
 st.sidebar.write("""
 	# *Smart Water Management*
