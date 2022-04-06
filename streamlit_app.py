@@ -3,6 +3,7 @@
 import pandas as pd
 import streamlit as st
 from helper import getData
+from datetime import datetime
 
 # Import datasets
 df_lack_water = pd.read_csv("./input/df_falta_agua.csv")
@@ -33,9 +34,9 @@ with col2:
 
 """# So what is the problem?"""
 """## How to prevent water leaks efficiently"""
-
-From = pd.Timestamp('2018-06-01')
-To = pd.Timestamp('2019-06-01')
+cf, ct = st.sidebar.columns(2)
+From = cf.date_input('From', datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2019-06-01', '%Y-%m-%d'))
+To = ct.date_input('To', datetime.strptime('2019-06-01', '%Y-%m-%d'), datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2019-06-01', '%Y-%m-%d'))
 
 # TODO, just for testing purpose
 c21, c22 = st.columns(2)
