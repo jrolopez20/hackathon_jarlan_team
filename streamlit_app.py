@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 
 st.sidebar.write("""
-	# *Project name*
+	# *Smart Water Management*
 	Project description goes here 
 	""")
 	
