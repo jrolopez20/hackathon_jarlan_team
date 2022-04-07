@@ -3,6 +3,7 @@
 import pandas as pd
 import streamlit as st
 import pickle
+import os
 from helper import getData
 from datetime import datetime
 
@@ -10,9 +11,11 @@ from datetime import datetime
 # df_lack_water = pd.read_csv("./input/df_falta_agua.csv")
 # df_water_leak = pd.read_csv("./input/df_fuga_agua.csv")
 
-with open('input/df_falta_agua.pickle', 'rb') as handle:
+home = os.getcwd()
+
+with open(os.path.join(home,'input','df_falta_agua.pickle'), 'rb') as handle:
     df_lack_water = pickle.load(handle)
-with open('input/df_fuga_agua.pickle', 'rb') as handle:
+with open(os.path.join(home,'input','df_fuga_agua.pickle'), 'rb') as handle:
     df_water_leak = pickle.load(handle)
 
 st.sidebar.write("""
