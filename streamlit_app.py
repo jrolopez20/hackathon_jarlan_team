@@ -57,6 +57,8 @@ c22.dataframe(df_water_leak.columns)
 # Uncoment this line
 hist = getData(From, To, pd.DateOffset(weeks=2), df_lack_water)
 
+st.line_chart(hist)
+
 
 
 """# Solution"""
