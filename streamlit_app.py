@@ -2,7 +2,7 @@
 
 import pandas as pd
 import streamlit as st
-import pickle
+import pickle5 as pickle
 import os
 from helper import getData
 from datetime import datetime
