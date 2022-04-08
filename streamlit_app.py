@@ -48,27 +48,40 @@ c21, c22 = st.columns(2)
 c21.dataframe(df_lack_water.columns)
 c22.dataframe(df_water_leak.columns)
 
-# st.dataframe(df_lack_water.head())
-# st.dataframe(df_water_leak.head())
 
-cf, ct = st.columns(2)
-From_str = cf.date_input('From', datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2019-06-01', '%Y-%m-%d'))
-To_str = ct.date_input('To', datetime.strptime('2019-06-01', '%Y-%m-%d'), datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2019-06-01', '%Y-%m-%d'))
-
-# Uncoment this line
-hist = getData(pd.Timestamp(From_str), pd.Timestamp(To_str), pd.DateOffset(weeks=2), df_lack_water)
-dict_hist = {'Fecha':[reg[0] for reg in hist]
-            ,'Total':[reg[1] for reg in hist]
-            ,'Zona 0':[reg[2][0] for reg in hist]
-            ,'Zona 1':[reg[2][1] for reg in hist]
-            ,'Zona 2':[reg[2][2] for reg in hist]
-            ,'Zona 3':[reg[2][3] for reg in hist]
-            ,'Zona 4':[reg[2][4] for reg in hist]
-            ,'Zona 5':[reg[2][5] for reg in hist]
+hist = getData(pd.Timestamp('2018-06-01'), pd.Timestamp('2019-06-01'), pd.DateOffset(days=1), df_lack_water)
+dict_hist = {'Date':[reg[0] for reg in hist]
+            ,'Total calls':[reg[1] for reg in hist]
+            ,'Zone 0':[reg[2][0] for reg in hist]
+            ,'Zone 1':[reg[2][1] for reg in hist]
+            ,'Zone 2':[reg[2][2] for reg in hist]
+            ,'Zone 3':[reg[2][3] for reg in hist]
+            ,'Zone 4':[reg[2][4] for reg in hist]
+            ,'Zone 5':[reg[2][5] for reg in hist]
             }
 df_hist = pd.DataFrame(dict_hist)
 
-fig = px.line(df_hist, x='Fecha', y="Total")
+fig = px.line(df_hist, x='Date', y=df_hist.columns)
+
+fig.update_xaxes(
+    rangeslider_visible=True,
+    rangeselector=dict(
+        buttons=list([
+            dict(count=14, label="1m", step="day", stepmode="backward"),
+            dict(count=1, label="1m", step="month", stepmode="backward"),
+            dict(count=3, label="3m", step="month", stepmode="backward"),
+            dict(count=6, label="6m", step="month", stepmode="backward"),
+            dict(step="all")
+        ])
+        ,bgcolor="#555"
+        ,activecolor="#777"
+    )
+
+)
+
+# fig = px.line(df_hist, x='Date', y="Total calls")
+# fig = px.area(df_hist, facet_col="company", facet_col_wrap=2)
+# fig = px.area(df, facet_col="company", facet_col_wrap=2)
 st.plotly_chart(fig, use_container_width=True)
 
 
