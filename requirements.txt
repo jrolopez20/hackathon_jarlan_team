@@ -6,3 +6,4 @@ seaborn
 matplotlib
 sklearn
 pickle5
+plotly
