@@ -10,17 +10,19 @@ import numpy as np
 from helper import getData
 from datetime import datetime
 
-# Import datasets
-# df_lack_water = pd.read_csv("./input/df_falta_agua.csv")
-# df_water_leak = pd.read_csv("./input/df_fuga_agua.csv")
-
+# Reading datasets
 home = os.getcwd()
+<<<<<<< HEAD
 
 with open(os.path.join(home, 'input', 'df_falta_agua.pickle'), 'rb') as handle:
+=======
+with open(os.path.join(home,'input','df_falta_agua.pickle'), 'rb') as handle:
+>>>>>>> f0aea084ad7b898c28848e1c44f4e53142617334
     df_lack_water = pickle.load(handle)
 with open(os.path.join(home, 'input', 'df_fuga_agua.pickle'), 'rb') as handle:
     df_water_leak = pickle.load(handle)
 
+# Sidebar
 st.sidebar.write("""
 	# *Smart Water Management*
 	Describes the current situation of the water supply in Chihuahua and how to contribute to beat this problem
@@ -28,9 +30,8 @@ st.sidebar.write("""
 
 st.sidebar.title('Interactive options:')
 
-"""# Actual situation"""
+st.write("""# Actual situation""")  
 col1, col2 = st.columns(2)
-
 with col1:
     """
     As tends to be the case in large, developing countries, Mexico is a nation of notable meteorological, hydrographic and social contrasts throughout its territory, which impact the various population strata in different ways. The public administration in Mexico is divided into federal (nationwide), state and municipal levels. In this sense, it is desirable to have water security metrics not only for the country as a whole but also for each state.\n
@@ -65,7 +66,7 @@ fig.update_xaxes(
     rangeslider_visible=True,
     rangeselector=dict(
         buttons=list([
-            dict(count=14, label="1m", step="day", stepmode="backward"),
+            dict(count=14, label="2w", step="day", stepmode="backward"),
             dict(count=1, label="1m", step="month", stepmode="backward"),
             dict(count=3, label="3m", step="month", stepmode="backward"),
             dict(count=6, label="6m", step="month", stepmode="backward"),
