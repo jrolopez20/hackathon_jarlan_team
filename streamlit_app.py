@@ -16,9 +16,9 @@ from datetime import datetime
 
 home = os.getcwd()
 
-with open(os.path.join(home,'input','df_falta_agua.pickle'), 'rb') as handle:
+with open(os.path.join(home, 'input', 'df_falta_agua.pickle'), 'rb') as handle:
     df_lack_water = pickle.load(handle)
-with open(os.path.join(home,'input','df_fuga_agua.pickle'), 'rb') as handle:
+with open(os.path.join(home, 'input', 'df_fuga_agua.pickle'), 'rb') as handle:
     df_water_leak = pickle.load(handle)
 
 st.sidebar.write("""
@@ -32,33 +32,31 @@ st.sidebar.title('Interactive options:')
 col1, col2 = st.columns(2)
 
 with col1:
-    st.write('Some critical text goes here.')
-    st.write('Lorem ipsum dolor sit amet consectetur adipiscing elit viverra mauris, taciti dapibus nec id at dictumst montes sem, praesent proin lacinia senectus aliquam et malesuada diam. In iaculis sociosqu urna conubia habitasse nam, habitant id nec dis vehicula proin, tempus nascetur varius volutpat dignissim. Vulputate volutpat erat venenatis nam augue conubia maecenas, nostra tempus donec montes pellentesque tincidunt, justo morbi egestas senectus eleifend iaculis')
+    """
+    As tends to be the case in large, developing countries, Mexico is a nation of notable meteorological, hydrographic and social contrasts throughout its territory, which impact the various population strata in different ways. The public administration in Mexico is divided into federal (nationwide), state and municipal levels. In this sense, it is desirable to have water security metrics not only for the country as a whole but also for each state.\n
+    The present work seeks to show this problem but focused on Chihuahua and how these contrasts create different water-security scenarios using pertinent indices.
+    """
 
 with col2:
     st.image(
-        'https://www.siliconrepublic.com/wp-content/uploads/2017/07/Leaking-pipe-718x523.jpg')
+        'https://www.siliconrepublic.com/wp-content/uploads/2017/07/Leaking-pipe-718x523.jpg'
+    )
+
+    st.image(
+        'https://www.theyucatantimes.com/wp-content/uploads/2020/10/agua-chihuahua.jpg'
+    )
 
 """# So what is the problem?"""
+
 """## How to prevent water leaks efficiently"""
 
+"""Based on the data collected by JMAS (Junta Municipal de Agua y Saneamiento de Chihuahua) on leak reports as well as the history of breakage records in the city of Chihuahua during the period from June 2018 to May 2019, a study can be done to analyze this data and be able to identify possible solutions."""
 
-# TODO, just for testing purpose
-c21, c22 = st.columns(2)
-c21.dataframe(df_lack_water.columns)
-c22.dataframe(df_water_leak.columns)
-
-
-hist = getData(pd.Timestamp('2018-06-01'), pd.Timestamp('2019-06-01'), pd.DateOffset(days=1), df_lack_water)
-dict_hist = {'Date':[reg[0] for reg in hist]
-            ,'Total calls':[reg[1] for reg in hist]
-            ,'Zone 0':[reg[2][0] for reg in hist]
-            ,'Zone 1':[reg[2][1] for reg in hist]
-            ,'Zone 2':[reg[2][2] for reg in hist]
-            ,'Zone 3':[reg[2][3] for reg in hist]
-            ,'Zone 4':[reg[2][4] for reg in hist]
-            ,'Zone 5':[reg[2][5] for reg in hist]
-            }
+"""In order to go into the matter here we present you some records of lack of water in the period mentioned above."""
+hist = getData(pd.Timestamp('2018-06-01'),
+               pd.Timestamp('2019-06-01'), pd.DateOffset(days=1), df_lack_water)
+dict_hist = {'Date': [reg[0] for reg in hist], 'Total calls': [reg[1] for reg in hist], 'Zone 0': [reg[2][0] for reg in hist], 'Zone 1': [reg[2][1] for reg in hist], 'Zone 2': [reg[2][2] for reg in hist], 'Zone 3': [reg[2][3] for reg in hist], 'Zone 4': [reg[2][4] for reg in hist], 'Zone 5': [reg[2][5] for reg in hist]
+             }
 df_hist = pd.DataFrame(dict_hist)
 
 fig = px.line(df_hist, x='Date', y=df_hist.columns)
@@ -72,18 +70,15 @@ fig.update_xaxes(
             dict(count=3, label="3m", step="month", stepmode="backward"),
             dict(count=6, label="6m", step="month", stepmode="backward"),
             dict(step="all")
-        ])
-        ,bgcolor="#555"
-        ,activecolor="#777"
+        ]), bgcolor="#555", activecolor="#777"
     )
-
 )
+
 
 # fig = px.line(df_hist, x='Date', y="Total calls")
 # fig = px.area(df_hist, facet_col="company", facet_col_wrap=2)
 # fig = px.area(df, facet_col="company", facet_col_wrap=2)
 st.plotly_chart(fig, use_container_width=True)
-
 
 
 """# Solution"""
