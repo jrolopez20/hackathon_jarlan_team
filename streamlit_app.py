@@ -12,12 +12,8 @@ from datetime import datetime
 
 # Reading datasets
 home = os.getcwd()
-<<<<<<< HEAD
 
 with open(os.path.join(home, 'input', 'df_falta_agua.pickle'), 'rb') as handle:
-=======
-with open(os.path.join(home,'input','df_falta_agua.pickle'), 'rb') as handle:
->>>>>>> f0aea084ad7b898c28848e1c44f4e53142617334
     df_lack_water = pickle.load(handle)
 with open(os.path.join(home, 'input', 'df_fuga_agua.pickle'), 'rb') as handle:
     df_water_leak = pickle.load(handle)
@@ -30,7 +26,7 @@ st.sidebar.write("""
 
 st.sidebar.title('Interactive options:')
 
-st.write("""# Actual situation""")  
+st.write("""# Actual situation""")
 col1, col2 = st.columns(2)
 with col1:
     """
