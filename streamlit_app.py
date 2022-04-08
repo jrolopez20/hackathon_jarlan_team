@@ -4,6 +4,9 @@ import pandas as pd
 import streamlit as st
 import pickle5 as pickle
 import os
+import plotly.figure_factory as ff
+import plotly.express as px
+import numpy as np
 from helper import getData
 from datetime import datetime
 
@@ -24,12 +27,6 @@ st.sidebar.write("""
 	""")
 
 st.sidebar.title('Interactive options:')
-
-cf, ct = st.sidebar.columns(2)
-From = cf.date_input('From', datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2019-06-01', '%Y-%m-%d'))
-To = ct.date_input('To', datetime.strptime('2019-06-01', '%Y-%m-%d'), datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2019-06-01', '%Y-%m-%d'))
-
-
 
 """# Actual situation"""
 col1, col2 = st.columns(2)
@@ -54,10 +51,25 @@ c22.dataframe(df_water_leak.columns)
 # st.dataframe(df_lack_water.head())
 # st.dataframe(df_water_leak.head())
 
-# Uncoment this line
-hist = getData(From, To, pd.DateOffset(weeks=2), df_lack_water)
+cf, ct = st.columns(2)
+From_str = cf.date_input('From', datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2019-06-01', '%Y-%m-%d'))
+To_str = ct.date_input('To', datetime.strptime('2019-06-01', '%Y-%m-%d'), datetime.strptime('2018-06-01', '%Y-%m-%d'), datetime.strptime('2019-06-01', '%Y-%m-%d'))
 
-st.line_chart(hist)
+# Uncoment this line
+hist = getData(pd.Timestamp(From_str), pd.Timestamp(To_str), pd.DateOffset(weeks=2), df_lack_water)
+dict_hist = {'Fecha':[reg[0] for reg in hist]
+            ,'Total':[reg[1] for reg in hist]
+            ,'Zona 0':[reg[2][0] for reg in hist]
+            ,'Zona 1':[reg[2][1] for reg in hist]
+            ,'Zona 2':[reg[2][2] for reg in hist]
+            ,'Zona 3':[reg[2][3] for reg in hist]
+            ,'Zona 4':[reg[2][4] for reg in hist]
+            ,'Zona 5':[reg[2][5] for reg in hist]
+            }
+df_hist = pd.DataFrame(dict_hist)
+
+fig = px.line(df_hist, x='Fecha', y="Total")
+st.plotly_chart(fig, use_container_width=True)
 
 
 
