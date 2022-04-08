@@ -10,17 +10,14 @@ import numpy as np
 from helper import getData
 from datetime import datetime
 
-# Import datasets
-# df_lack_water = pd.read_csv("./input/df_falta_agua.csv")
-# df_water_leak = pd.read_csv("./input/df_fuga_agua.csv")
-
+# Reading datasets
 home = os.getcwd()
-
 with open(os.path.join(home,'input','df_falta_agua.pickle'), 'rb') as handle:
     df_lack_water = pickle.load(handle)
 with open(os.path.join(home,'input','df_fuga_agua.pickle'), 'rb') as handle:
     df_water_leak = pickle.load(handle)
 
+# Sidebar
 st.sidebar.write("""
 	# *Smart Water Management*
 	Describes the current situation of the water supply in Chihuahua and how to contribute to beat this problem
@@ -28,9 +25,8 @@ st.sidebar.write("""
 
 st.sidebar.title('Interactive options:')
 
-"""# Actual situation"""
+st.write("""# Actual situation""")  
 col1, col2 = st.columns(2)
-
 with col1:
     st.write('Some critical text goes here.')
     st.write('Lorem ipsum dolor sit amet consectetur adipiscing elit viverra mauris, taciti dapibus nec id at dictumst montes sem, praesent proin lacinia senectus aliquam et malesuada diam. In iaculis sociosqu urna conubia habitasse nam, habitant id nec dis vehicula proin, tempus nascetur varius volutpat dignissim. Vulputate volutpat erat venenatis nam augue conubia maecenas, nostra tempus donec montes pellentesque tincidunt, justo morbi egestas senectus eleifend iaculis')
@@ -67,7 +63,7 @@ fig.update_xaxes(
     rangeslider_visible=True,
     rangeselector=dict(
         buttons=list([
-            dict(count=14, label="1m", step="day", stepmode="backward"),
+            dict(count=14, label="2w", step="day", stepmode="backward"),
             dict(count=1, label="1m", step="month", stepmode="backward"),
             dict(count=3, label="3m", step="month", stepmode="backward"),
             dict(count=6, label="6m", step="month", stepmode="backward"),
