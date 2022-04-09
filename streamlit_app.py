@@ -31,7 +31,10 @@ col1, col2 = st.columns(2)
 with col1:
     """
     As tends to be the case in large, developing countries, Mexico is a nation of notable meteorological, hydrographic and social contrasts throughout its territory, which impact the various population strata in different ways. The public administration in Mexico is divided into federal (nationwide), state and municipal levels. In this sense, it is desirable to have water security metrics not only for the country as a whole but also for each state.\n
-    The present work seeks to show this problem but focused on Chihuahua and how these contrasts create different water-security scenarios using pertinent indices.
+    The present work seeks to show this problem but focused on Chihuahua and how these contrasts create different water-security scenarios using pertinent indices.\n
+    The water crisis in Chihuahua is fuelled by two main issues, according to investigative journalist Ignacio Alvarado, who is from Chihuahua and has investigated conflicts tied to natural resources: the illegal extraction of water and the rudimentary infrastructure of dams and canals.
+    The scarcity of water in Chihuahua has made it a lucrative source of income for many, apart from organised crime, the extraction of “water is possibly, more so than the extraction of minerals, the detonator of most violence in the state. The overexploitation of wells is an extremely grave problem too.
+    [[1]](https://www.theyucatantimes.com/2020/10/115001/)
     """
 
 with col2:
@@ -42,6 +45,9 @@ with col2:
     st.image(
         'https://www.theyucatantimes.com/wp-content/uploads/2020/10/agua-chihuahua.jpg'
     )
+
+    """To all this are added the problems of breakdowns and water leak reports that are not solved in time, causing an additional loss of water.\n"""
+    """This work tries to explain this weakness and find ways to prevent these failures to contribute to the saving of this precious resource."""
 
 """# So what is the problem?"""
 
