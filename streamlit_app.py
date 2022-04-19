@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import pandas as pd
 import streamlit as st
 import pickle5 as pickle
@@ -7,6 +6,7 @@ import os
 import plotly.figure_factory as ff
 import plotly.express as px
 import numpy as np
+import json
 from helper import getData
 from datetime import datetime
 
@@ -19,23 +19,26 @@ with open(os.path.join(home, 'input', 'df_fuga_agua.pickle'), 'rb') as handle:
     df_water_leak = pickle.load(handle)
 
 # Sidebar
+st.sidebar.write("""# *Smart Water Management* """)
+
+language = st.sidebar.selectbox('', ('EN', 'ES'))
+
+with open('./languages/%s.json' % language, 'r', encoding="utf-8") as translation_file:    
+    translation = json.load(translation_file)
+
+st.sidebar.write(translation['project_description'])
+
+# Sidebar footer
 st.sidebar.write("""
-	# *Smart Water Management*
-	Describes the current situation of the water supply in Chihuahua and how to contribute to beat this problem
-	""")
+	%s **Jarlan Team** \n
+	*© 2022 [Universidad Autónoma de Chihuahua](https://uach.mx)*
+	""" % translation['developed_by'])
 
-st.sidebar.title('Interactive options:')
 
-st.write("""# Actual situation""")
+st.write("""# %s""" % (translation['actual_situation']))
 col1, col2 = st.columns(2)
 with col1:
-    """
-    As tends to be the case in large, developing countries, Mexico is a nation of notable meteorological, hydrographic and social contrasts throughout its territory, which impact the various population strata in different ways. The public administration in Mexico is divided into federal (nationwide), state and municipal levels. In this sense, it is desirable to have water security metrics not only for the country as a whole but also for each state.\n
-    The present work seeks to show this problem but focused on Chihuahua and how these contrasts create different water-security scenarios using pertinent indices.\n
-    The water crisis in Chihuahua is fuelled by two main issues, according to investigative journalist Ignacio Alvarado, who is from Chihuahua and has investigated conflicts tied to natural resources: the illegal extraction of water and the rudimentary infrastructure of dams and canals.
-    The scarcity of water in Chihuahua has made it a lucrative source of income for many, apart from organised crime, the extraction of “water is possibly, more so than the extraction of minerals, the detonator of most violence in the state. The overexploitation of wells is an extremely grave problem too.
-    [[1]](https://www.theyucatantimes.com/2020/10/115001/)
-    """
+    """%s""" % translation['introduction1']
 
 with col2:
     st.image(
@@ -46,16 +49,16 @@ with col2:
         'https://www.theyucatantimes.com/wp-content/uploads/2020/10/agua-chihuahua.jpg'
     )
 
-    """To all this are added the problems of breakdowns and water leak reports that are not solved in time, causing an additional loss of water.\n"""
-    """This work tries to explain this weakness and find ways to prevent these failures to contribute to the saving of this precious resource."""
+    """%s""" % translation['introduction2']
+    
+"""# %s""" % translation['what_is_the_problem']
 
-"""# So what is the problem?"""
+"""## %s""" % translation['problem_to_solve']
 
-"""## How to prevent water leaks efficiently"""
+"""%s""" % translation['problem_description1']
 
-"""Based on the data collected by JMAS (Junta Municipal de Agua y Saneamiento de Chihuahua) on leak reports as well as the history of breakage records in the city of Chihuahua during the period from June 2018 to May 2019, a study can be done to analyze this data and be able to identify possible solutions."""
+"""%s""" % translation['problem_description2']
 
-"""In order to go into the matter here we present you some records of lack of water in the period mentioned above."""
 hist = getData(pd.Timestamp('2018-06-01'),
                pd.Timestamp('2019-06-01'), pd.DateOffset(days=1), df_lack_water)
 dict_hist = {'Date': [reg[0] for reg in hist], 'Total calls': [reg[1] for reg in hist], 'Zone 0': [reg[2][0] for reg in hist], 'Zone 1': [reg[2][1] for reg in hist], 'Zone 2': [reg[2][2] for reg in hist], 'Zone 3': [reg[2][3] for reg in hist], 'Zone 4': [reg[2][4] for reg in hist], 'Zone 5': [reg[2][5] for reg in hist]
@@ -83,15 +86,10 @@ fig.update_xaxes(
 # fig = px.area(df, facet_col="company", facet_col_wrap=2)
 st.plotly_chart(fig, use_container_width=True)
 
+"""# %s""" % translation['solution']
 
-"""# Solution"""
-"""With this work we offer a possible solution to efficiently mitigate and prevent all water leaks and contribute to its conservation."""
-
+"""%s""" % translation['solution1']
 
 """TODO Here we will start displaying chart as part of our solution"""
 
-# Sidebar footer
-st.sidebar.write("""
-	Developed by **Jarlan Team** \n
-	*© 2022 [Universidad Autónoma de Chihuahua](https://uach.mx)*
-	""")
+
