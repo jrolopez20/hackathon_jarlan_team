@@ -14,7 +14,7 @@ from datetime import datetime
 home = os.getcwd()
 
 st.set_page_config(
-     page_title="Smart Water Management",
+     page_title="Smart Water Management in Chihuahua",
     #  page_icon="🧊",
     #  layout="wide",
      initial_sidebar_state="expanded",
