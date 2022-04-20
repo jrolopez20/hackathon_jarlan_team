@@ -13,6 +13,16 @@ from datetime import datetime
 # Reading datasets
 home = os.getcwd()
 
+st.set_page_config(
+     page_title="Smart Water Management",
+    #  page_icon="🧊",
+    #  layout="wide",
+     initial_sidebar_state="expanded",
+     menu_items={
+         'About': "This project tend to describes the current situation of the water supply in Chihuahua and how to contribute to beat this problem"
+     }
+ )
+
 with open(os.path.join(home, 'input', 'df_falta_agua.pickle'), 'rb') as handle:
     df_lack_water = pickle.load(handle)
 with open(os.path.join(home, 'input', 'df_fuga_agua.pickle'), 'rb') as handle:
