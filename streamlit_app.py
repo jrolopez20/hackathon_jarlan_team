@@ -9,7 +9,6 @@ import numpy as np
 import json
 from helper import getData
 from datetime import datetime
-from streamlit_image_comparison import image_comparison
 
 # Reading datasets
 home = os.getcwd()
