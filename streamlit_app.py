@@ -52,11 +52,13 @@ with col1:
 
 with col2:
     st.image(
-        'https://www.siliconrepublic.com/wp-content/uploads/2017/07/Leaking-pipe-718x523.jpg'
+        'https://www.siliconrepublic.com/wp-content/uploads/2017/07/Leaking-pipe-718x523.jpg',
+         caption='Fig 1. Avería'
     )
 
     st.image(
-        'https://www.theyucatantimes.com/wp-content/uploads/2020/10/agua-chihuahua.jpg'
+        'https://www.theyucatantimes.com/wp-content/uploads/2020/10/agua-chihuahua.jpg',
+         caption='Fig 2. Persona manifestándose'
     )
 
     """%s""" % translation['introduction2']
@@ -104,6 +106,42 @@ st.map(df_lack_water.sample(300))
 """# %s""" % translation['solution']
 
 """%s""" % translation['solution1']
+
+"""A partir de la información recogida por los sensores en cada una de las estaciones de bombeo que se 
+encuentran distribuidas en la ciudad como se puede ver en la Fig 4, es posible obtener un grafo como el
+de la Fig 4 donde se muestra la relación entre cada una de estas estaciones"""
+
+cols1, cols2 = st.columns(2)
+with cols1:
+    st.image(
+        './resources/images/tanks.png',
+        caption='Fig 3. Tanks'
+    )
+
+with cols2:
+    st.image(
+        './resources/images/graph.png',
+        caption='Fig 4. Graph'
+    )
+
+"""Luego teniendo el cuenta el nivel de llenado de cada uno de los tanques así como los reportes de llamdas
+que se producen en la ciudad como se pueden ver en el mapa y haciendo uso de herramientas de aprendizaje de 
+maquina es posible hacer predicciones con anterioridad de posibles averías incluso antes de que se produzca 
+una llamada de reporte."""
+
+"""### Machine Learning:"""
+
+st.image(
+        './resources/images/big-picture.png',
+        caption='Fig 5. Representación gráfica de la solución haciendo uso de técnicas de Machine learning'
+    )
+
+"""Y a partir de este herramienta que se capás de identificar además la zona donde se produjo dicha avería"""
+
+st.image(
+        './resources/images/zones.png',
+        caption='Fig 6. Distribución por zonas de abastecimiento de agua'
+    )
 
 """TODO Here we will start displaying chart as part of our solution"""
 
