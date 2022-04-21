@@ -9,6 +9,7 @@ import numpy as np
 import json
 from helper import getData
 from datetime import datetime
+from streamlit_image_comparison import image_comparison
 
 # Reading datasets
 home = os.getcwd()
@@ -97,6 +98,11 @@ fig.update_xaxes(
 st.plotly_chart(fig, use_container_width=True)
 
 """# %s""" % translation['solution']
+
+image_comparison(
+    img1="resources/images/tanks.png",
+    img2="resources/images/graph.png",
+)
 
 """%s""" % translation['solution1']
 

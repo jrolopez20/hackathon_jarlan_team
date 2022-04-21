@@ -7,3 +7,6 @@ matplotlib
 sklearn
 pickle5
 plotly
+streamlit-image-comparison
+scikit-image
+imagecodecs
