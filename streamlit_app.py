@@ -98,14 +98,23 @@ fig.update_xaxes(
 st.plotly_chart(fig, use_container_width=True)
 
 """# %s""" % translation['solution']
-"""
-image_comparison(
-    img1="resources/images/tanks.png",
-    img2="resources/images/graph.png",
-)
-"""
 
 """%s""" % translation['solution1']
+
+cols1, cols2 = st.columns(2)
+with cols1:
+    st.image(
+        './resources/images/tanks.png',
+        caption='Tanks'
+    )
+
+with cols2:
+    st.image(
+        './resources/images/graph.png',
+        caption='Graph'
+    )
+
+
 
 """TODO Here we will start displaying chart as part of our solution"""
 
