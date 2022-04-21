@@ -131,7 +131,8 @@ st.image(
         caption='Fig 5. Representación gráfica de la solución haciendo uso de técnicas de Machine learning'
     )
 
-"""Y a partir de este herramienta que se capás de identificar además la zona donde se produjo dicha avería"""
+"""Y a partir de este herramienta que sea capás de identificar además la zona donde se produjo dicha avería 
+a fin de que se puedan poner en práctica los procedimientos para darle solución en tiempo."""
 
 st.image(
         './resources/images/zones.png',
