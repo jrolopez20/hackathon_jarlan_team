@@ -9,4 +9,5 @@ pickle5
 plotly
 scikit-image
 imagecodecs
+sahi>=0.8.12
 streamlit-image-comparison
