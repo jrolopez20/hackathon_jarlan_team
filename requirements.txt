@@ -9,3 +9,4 @@ pickle5
 plotly
 scikit-image
 imagecodecs
+streamlit-image-comparison
