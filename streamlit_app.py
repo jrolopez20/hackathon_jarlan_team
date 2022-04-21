@@ -23,9 +23,9 @@ st.set_page_config(
      }
  )
 
-with open(os.path.join(home, 'input', 'df_falta_agua.pickle'), 'rb') as handle:
+with open(os.path.join(home, 'input', 'df_falta_agua_v2.pickle'), 'rb') as handle:
     df_lack_water = pickle.load(handle)
-with open(os.path.join(home, 'input', 'df_fuga_agua.pickle'), 'rb') as handle:
+with open(os.path.join(home, 'input', 'df_fuga_agua_v2.pickle'), 'rb') as handle:
     df_water_leak = pickle.load(handle)
 
 # Sidebar
@@ -95,6 +95,11 @@ fig.update_xaxes(
 # fig = px.area(df_hist, facet_col="company", facet_col_wrap=2)
 # fig = px.area(df, facet_col="company", facet_col_wrap=2)
 st.plotly_chart(fig, use_container_width=True)
+
+# Mapping data
+df_lack_water.rename(columns = {'lng':'lon'}, inplace = True)
+df_water_leak.rename(columns = {'lng':'lon'}, inplace = True)
+st.map(df_lack_water.sample(300))
 
 """# %s""" % translation['solution']
 
