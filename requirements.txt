@@ -7,3 +7,4 @@ matplotlib
 sklearn
 pickle5
 plotly
+scikit-learn

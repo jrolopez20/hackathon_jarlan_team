@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from matplotlib import pyplot as plt
 import pandas as pd
 import streamlit as st
 import pickle5 as pickle
@@ -9,6 +10,7 @@ import numpy as np
 import json
 from helper import getData
 from datetime import datetime
+from sklearn import svm, datasets
 
 # Reading datasets
 home = os.getcwd()
@@ -154,3 +156,62 @@ st.image(
         './resources/images/zones.png',
         caption='Fig 6. Distribución por zonas de abastecimiento de agua'
     )
+
+# Machine learning models
+# modelSVM = svm.SVR(kernel='rbf', gamma=0.7, C=5.0, epsilon=0.6)
+modelSVM = svm.SVC(kernel='rbf', gamma=0.6, C=2.0)
+
+# Testing with iris dataset
+iris = datasets.load_iris()
+X = iris.data[:, :2]
+y = iris.target
+
+def make_meshgrid(x, y, h=0.02):
+    """Create a mesh of points to plot in
+
+    Parameters
+    ----------
+    x: data to base x-axis meshgrid on
+    y: data to base y-axis meshgrid on
+    h: stepsize for meshgrid, optional
+
+    Returns
+    -------
+    xx, yy : ndarray
+    """
+    x_min, x_max = x.min() - 1, x.max() + 1
+    y_min, y_max = y.min() - 1, y.max() + 1
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+    return xx, yy
+
+def plot_contours(ax, clf, xx, yy, **params):
+    """Plot the decision boundaries for a classifier.
+
+    Parameters
+    ----------
+    ax: matplotlib axes object
+    clf: a classifier
+    xx: meshgrid ndarray
+    yy: meshgrid ndarray
+    params: dictionary of params to pass to contourf, optional
+    """
+    Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+    out = ax.contourf(xx, yy, Z, **params)
+    return out
+
+modelSVM.fit(X,y)
+X0, X1 = X[:, 0], X[:, 1]
+xx, yy = make_meshgrid(X0, X1)
+fig = plt.axes()
+plot_contours(fig, modelSVM, xx, yy, cmap=plt.cm.coolwarm, alpha=0.8)
+fig.scatter(X0, X1, c=y, cmap=plt.cm.coolwarm, s=20, edgecolors="k")
+fig.set_xlim(xx.min(), xx.max())
+fig.set_ylim(yy.min(), yy.max())
+fig.set_xlabel("Sepal length")
+fig.set_ylabel("Sepal width")
+fig.set_xticks(())
+fig.set_yticks(())
+fig.set_title('title')
+
+st.pyplot(plt)
