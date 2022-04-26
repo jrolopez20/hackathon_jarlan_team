@@ -27,11 +27,22 @@ with open(os.path.join(home, 'input', 'df_falta_agua_v2.pickle'), 'rb') as handl
     df_lack_water = pickle.load(handle)
 with open(os.path.join(home, 'input', 'df_fuga_agua_v2.pickle'), 'rb') as handle:
     df_water_leak = pickle.load(handle)
+df_tanks = pd.read_csv("./input/tanks.csv")
+
+# df_tanks = df_tanks.sample(10)
+
+# Transform tanks dataframe
+g = df_tanks.groupby(['clave_inst','datetime']).cumcount()
+
+df_tanks = (df_tanks.set_index([g, 'datetime','clave_inst'])['valor']
+        .unstack(fill_value=0)
+        .reset_index(level=[1])
+        .rename_axis(None, axis=1))
 
 # Sidebar
 st.sidebar.write("""# *Smart Water Management* """)
 
-language = st.sidebar.selectbox('', ('EN', 'ES'))
+language = st.sidebar.selectbox('Select language', ('EN', 'ES'))
 
 with open('./languages/%s.json' % language, 'r', encoding="utf-8") as translation_file:    
     translation = json.load(translation_file)
@@ -143,7 +154,3 @@ st.image(
         './resources/images/zones.png',
         caption='Fig 6. Distribución por zonas de abastecimiento de agua'
     )
-
-"""TODO Here we will start displaying chart as part of our solution"""
-
-
