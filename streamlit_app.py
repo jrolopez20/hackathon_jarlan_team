@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from optparse import Values
 from matplotlib import pyplot as plt
 import pandas as pd
 import streamlit as st
@@ -31,15 +32,19 @@ with open(os.path.join(home, 'input', 'df_fuga_agua_v2.pickle'), 'rb') as handle
     df_water_leak = pickle.load(handle)
 df_tanks = pd.read_csv("./input/tanks.csv")
 
-# df_tanks = df_tanks.sample(10)
+# df_tanks = df_tanks.sample(5)
 
 # Transform tanks dataframe
 g = df_tanks.groupby(['clave_inst','datetime']).cumcount()
 
 df_tanks = (df_tanks.set_index([g, 'datetime','clave_inst'])['valor']
-        .unstack(fill_value=0)
+        .unstack(fill_value=None)
         .reset_index(level=[1])
         .rename_axis(None, axis=1))
+
+# Remove null Values
+df_tanks = df_tanks.fillna(df_tanks.median())
+# st.write(df_tanks.head())
 
 # Sidebar
 st.sidebar.write("""# *Smart Water Management* """)
