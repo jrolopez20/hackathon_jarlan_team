@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from optparse import Values
+from sqlite3 import Timestamp
 from matplotlib import pyplot as plt
 import pandas as pd
 import streamlit as st
@@ -30,21 +31,16 @@ with open(os.path.join(home, 'input', 'df_falta_agua_v2.pickle'), 'rb') as handl
     df_lack_water = pickle.load(handle)
 with open(os.path.join(home, 'input', 'df_fuga_agua_v2.pickle'), 'rb') as handle:
     df_water_leak = pickle.load(handle)
-df_tanks = pd.read_csv("./input/tanks.csv")
+with open(os.path.join(home, 'input', 'df_tanks.pickle'), 'rb') as handle:
+    df_tanks = pickle.load(handle)
+
+df_target5zone = pd.read_csv("./input/target5Zone.csv")
+df_target5zone['timestamp'] = df_target5zone['timestamp'].apply(lambda x: pd.Timestamp(x))
 
 # df_tanks = df_tanks.sample(5)
 
-# Transform tanks dataframe
-g = df_tanks.groupby(['clave_inst','datetime']).cumcount()
-
-df_tanks = (df_tanks.set_index([g, 'datetime','clave_inst'])['valor']
-        .unstack(fill_value=None)
-        .reset_index(level=[1])
-        .rename_axis(None, axis=1))
-
-# Remove null Values
-df_tanks = df_tanks.fillna(df_tanks.median())
-# st.write(df_tanks.head())
+# st.dataframe(df_target5zone)
+# st.dataframe(df_tanks)
 
 # Sidebar
 st.sidebar.write("""# *Smart Water Management* """)
@@ -106,7 +102,7 @@ fig.update_xaxes(
             dict(count=3, label="3m", step="month", stepmode="backward"),
             dict(count=6, label="6m", step="month", stepmode="backward"),
             dict(step="all")
-        ]), bgcolor="#555", activecolor="#777"
+        ]), bgcolor="#222", activecolor="#222"
     )
 )
 
@@ -166,57 +162,70 @@ st.image(
 # modelSVM = svm.SVR(kernel='rbf', gamma=0.7, C=5.0, epsilon=0.6)
 modelSVM = svm.SVC(kernel='rbf', gamma=0.6, C=2.0)
 
+X = df_tanks[df_tanks['datetime'] >= pd.Timestamp('2018-06-07')]
+X = X[X['datetime'] <= pd.Timestamp('2019-01-08')]
+X = X.drop(columns = ['datetime'])
+
+y = df_target5zone[df_target5zone['timestamp'] >= pd.Timestamp('2018-06-07')]
+y = y[y['timestamp'] <= pd.Timestamp('2019-01-08')]
+y = y.drop(columns = ['timestamp'])
+
+X['labels'] = y
+df = X
+
+st.dataframe(df)
+
 # Testing with iris dataset
-iris = datasets.load_iris()
-X = iris.data[:, :2]
-y = iris.target
+# iris = datasets.load_iris()
+# X = iris.data[:, :2]
+# y = iris.target
 
-def make_meshgrid(x, y, h=0.02):
-    """Create a mesh of points to plot in
+# def make_meshgrid(x, y, h=0.02):
+#     """Create a mesh of points to plot in
 
-    Parameters
-    ----------
-    x: data to base x-axis meshgrid on
-    y: data to base y-axis meshgrid on
-    h: stepsize for meshgrid, optional
+#     Parameters
+#     ----------
+#     x: data to base x-axis meshgrid on
+#     y: data to base y-axis meshgrid on
+#     h: stepsize for meshgrid, optional
 
-    Returns
-    -------
-    xx, yy : ndarray
-    """
-    x_min, x_max = x.min() - 1, x.max() + 1
-    y_min, y_max = y.min() - 1, y.max() + 1
-    xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
-    return xx, yy
+#     Returns
+#     -------
+#     xx, yy : ndarray
+#     """
+#     x_min, x_max = x.min() - 1, x.max() + 1
+#     y_min, y_max = y.min() - 1, y.max() + 1
+#     xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+#     return xx, yy
 
-def plot_contours(ax, clf, xx, yy, **params):
-    """Plot the decision boundaries for a classifier.
+# def plot_contours(ax, clf, xx, yy, **params):
+#     """Plot the decision boundaries for a classifier.
 
-    Parameters
-    ----------
-    ax: matplotlib axes object
-    clf: a classifier
-    xx: meshgrid ndarray
-    yy: meshgrid ndarray
-    params: dictionary of params to pass to contourf, optional
-    """
-    Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
-    Z = Z.reshape(xx.shape)
-    out = ax.contourf(xx, yy, Z, **params)
-    return out
+#     Parameters
+#     ----------
+#     ax: matplotlib axes object
+#     clf: a classifier
+#     xx: meshgrid ndarray
+#     yy: meshgrid ndarray
+#     params: dictionary of params to pass to contourf, optional
+#     """
+#     Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+#     Z = Z.reshape(xx.shape)
+#     out = ax.contourf(xx, yy, Z, **params)
+#     return out
 
-modelSVM.fit(X,y)
-X0, X1 = X[:, 0], X[:, 1]
-xx, yy = make_meshgrid(X0, X1)
-fig = plt.axes()
-plot_contours(fig, modelSVM, xx, yy, cmap=plt.cm.coolwarm, alpha=0.8)
-fig.scatter(X0, X1, c=y, cmap=plt.cm.coolwarm, s=20, edgecolors="k")
-fig.set_xlim(xx.min(), xx.max())
-fig.set_ylim(yy.min(), yy.max())
-fig.set_xlabel("Sepal length")
-fig.set_ylabel("Sepal width")
-fig.set_xticks(())
-fig.set_yticks(())
-fig.set_title('title')
+# modelSVM.fit(X,y)
+# X0, X1 = X[:, 0], X[:, 1]
+# xx, yy = make_meshgrid(X0, X1)
+# fig = plt.axes()
+# plot_contours(fig, modelSVM, xx, yy, cmap=plt.cm.coolwarm, alpha=0.8)
+# fig.scatter(X0, X1, c=y, cmap=plt.cm.coolwarm, s=20, edgecolors="k")
+# fig.set_xlim(xx.min(), xx.max())
+# fig.set_ylim(yy.min(), yy.max())
+# fig.set_xlabel("Sepal length")
+# fig.set_ylabel("Sepal width")
+# fig.set_xticks(())
+# fig.set_yticks(())
+# fig.set_title('title')
 
-st.pyplot(plt)
+# st.pyplot(plt)
