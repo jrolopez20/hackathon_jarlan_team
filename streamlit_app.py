@@ -13,6 +13,7 @@ from helper import getData
 from sklearn import svm, datasets
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.ensemble import RandomForestClassifier
+import random
 
 # Reading datasets
 home = os.getcwd()
@@ -20,7 +21,7 @@ home = os.getcwd()
 st.set_page_config(
      page_title="Smart Water Management in Chihuahua",
     #  page_icon="🧊",
-    #  layout="wide",
+     layout="wide",
      initial_sidebar_state="expanded",
      menu_items={
          'About': "This project tend to describes the current situation of the water supply in Chihuahua and how to contribute to beat this problem"
@@ -63,6 +64,8 @@ st.write("""# %s""" % (translation['actual_situation']))
 col1, col2 = st.columns(2)
 with col1:
     """%s""" % translation['introduction1']
+    
+    """%s""" % translation['introduction2']
 
 with col2:
     st.image(
@@ -70,12 +73,11 @@ with col2:
          caption='Fig 1. Avería'
     )
 
-    st.image(
-        'https://www.theyucatantimes.com/wp-content/uploads/2020/10/agua-chihuahua.jpg',
-         caption='Fig 2. Persona manifestándose'
-    )
+    # st.image(
+    #     'https://www.theyucatantimes.com/wp-content/uploads/2020/10/agua-chihuahua.jpg',
+    #      caption='Fig 2. Persona manifestándose'
+    # )
 
-    """%s""" % translation['introduction2']
     
 """# %s""" % translation['what_is_the_problem']
 
@@ -173,7 +175,7 @@ y = y.reset_index(drop = True)
 
 X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, y, test_size = 0.2)
 
-# st.write(X_train)
+# st.write(X_train.columns)
 # st.write(y_train)
 
 multi_target_model = MultiOutputClassifier(model)
@@ -237,3 +239,22 @@ st.write(test_pred_model[0])
 # fig.set_title('title')
 
 # st.pyplot(plt)
+
+with st.expander("Evaluar entrada"):
+    i = 0
+    dict = {}
+    e1, e2 = st.columns(2)
+
+    for c in X_train.columns:
+        if i % 2 == 0:
+            dict[c] = e1.slider(c, 0, 30, 7)
+        else:
+            dict[c] = e2.slider(c, 0, 30, 5)
+        i += 1
+
+    if st.button('Introducir datos y predecir roturas por zonas'):
+        new_set = pd.DataFrame(dict, index=[0])
+        st.write(new_set)
+        test_pred_model = multi_target_model.predict(new_set)
+        st.write(test_pred_model)
+    
