@@ -181,7 +181,7 @@ multi_target_model.fit(X_train, y_train)
 
 test_pred_model = multi_target_model.predict(X_test)
 st.write(sklearn.metrics.accuracy_score(y_test, test_pred_model))
-st.write()
+st.write(test_pred_model[0])
 
 # Testing with iris dataset
 # iris = datasets.load_iris()
