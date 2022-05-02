@@ -20,7 +20,7 @@ home = os.getcwd()
 st.set_page_config(
      page_title="Smart Water Management in Chihuahua",
     #  page_icon="🧊",
-    #  layout="wide",
+     layout="wide",
      initial_sidebar_state="expanded",
      menu_items={
          'About': "This project tend to describes the current situation of the water supply in Chihuahua and how to contribute to beat this problem"
@@ -63,6 +63,8 @@ st.write("""# %s""" % (translation['actual_situation']))
 col1, col2 = st.columns(2)
 with col1:
     """%s""" % translation['introduction1']
+    
+    """%s""" % translation['introduction2']
 
 with col2:
     st.image(
@@ -70,12 +72,11 @@ with col2:
          caption='Fig 1. Avería'
     )
 
-    st.image(
-        'https://www.theyucatantimes.com/wp-content/uploads/2020/10/agua-chihuahua.jpg',
-         caption='Fig 2. Persona manifestándose'
-    )
+    # st.image(
+    #     'https://www.theyucatantimes.com/wp-content/uploads/2020/10/agua-chihuahua.jpg',
+    #      caption='Fig 2. Persona manifestándose'
+    # )
 
-    """%s""" % translation['introduction2']
     
 """# %s""" % translation['what_is_the_problem']
 
@@ -173,7 +174,7 @@ y = y.reset_index(drop = True)
 
 X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, y, test_size = 0.2)
 
-# st.write(X_train)
+# st.write(X_train.columns)
 # st.write(y_train)
 
 multi_target_model = MultiOutputClassifier(model)
@@ -237,3 +238,24 @@ st.write()
 # fig.set_title('title')
 
 # st.pyplot(plt)
+
+with st.expander("Evaluar entrada"):
+    i = 0
+    a = {}
+    e1, e2 = st.columns(2)
+
+    for c in X_train.columns:
+        if i % 2 == 0:
+            a[c] = e1.slider(c, 0, 130, 25)
+        else:
+            a[c] = e2.slider(c, 0, 130, 25)
+        i += 1
+
+    if st.button('Introducir datos'):
+        st.write('Why hello there')
+    # e1, e2 = st.columns(2)
+    # # with e1:
+    # t1 = e1.slider('T1', 0, 130, 25)
+
+    # # with e2:
+    # t2 = e2.slider('T2', 0, 130, 25)
