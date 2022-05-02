@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from optparse import Values
-from sqlite3 import Timestamp
 from matplotlib import pyplot as plt
 import pandas as pd
+import sklearn
 import streamlit as st
 import pickle5 as pickle
 import os
@@ -11,8 +10,9 @@ import plotly.express as px
 import numpy as np
 import json
 from helper import getData
-from datetime import datetime
 from sklearn import svm, datasets
+from sklearn.multioutput import MultiOutputClassifier
+from sklearn.ensemble import RandomForestClassifier
 
 # Reading datasets
 home = os.getcwd()
@@ -114,7 +114,7 @@ st.plotly_chart(fig, use_container_width=True)
 
 # Mapping data
 df_lack_water.rename(columns = {'lng':'lon'}, inplace = True)
-df_water_leak.rename(columns = {'lng':'lon'}, inplace = True)
+# df_water_leak.rename(columns = {'lng':'lon'}, inplace = True)
 st.map(df_lack_water.sample(300))
 
 """# %s""" % translation['solution']
@@ -160,7 +160,7 @@ st.image(
 
 # Machine learning models
 # modelSVM = svm.SVR(kernel='rbf', gamma=0.7, C=5.0, epsilon=0.6)
-modelSVM = svm.SVC(kernel='rbf', gamma=0.6, C=2.0)
+model = RandomForestClassifier()
 
 X = df_tanks[df_tanks['datetime'] >= pd.Timestamp('2018-06-07')]
 X = X[X['datetime'] <= pd.Timestamp('2019-01-08')]
@@ -169,11 +169,19 @@ X = X.drop(columns = ['datetime'])
 y = df_target5zone[df_target5zone['timestamp'] >= pd.Timestamp('2018-06-07')]
 y = y[y['timestamp'] <= pd.Timestamp('2019-01-08')]
 y = y.drop(columns = ['timestamp'])
+y = y.reset_index(drop = True)
 
-X['labels'] = y
-df = X
+X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, y, test_size = 0.2)
 
-st.dataframe(df)
+# st.write(X_train)
+# st.write(y_train)
+
+multi_target_model = MultiOutputClassifier(model)
+multi_target_model.fit(X_train, y_train)
+
+test_pred_model = multi_target_model.predict(X_test)
+st.write(sklearn.metrics.accuracy_score(y_test, test_pred_model))
+st.write()
 
 # Testing with iris dataset
 # iris = datasets.load_iris()
