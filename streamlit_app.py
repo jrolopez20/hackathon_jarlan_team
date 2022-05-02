@@ -13,6 +13,7 @@ from helper import getData
 from sklearn import svm, datasets
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.ensemble import RandomForestClassifier
+import random
 
 # Reading datasets
 home = os.getcwd()
@@ -241,21 +242,19 @@ st.write()
 
 with st.expander("Evaluar entrada"):
     i = 0
-    a = {}
+    dict = {}
     e1, e2 = st.columns(2)
 
     for c in X_train.columns:
         if i % 2 == 0:
-            a[c] = e1.slider(c, 0, 130, 25)
+            dict[c] = e1.slider(c, 0, 30, 7)
         else:
-            a[c] = e2.slider(c, 0, 130, 25)
+            dict[c] = e2.slider(c, 0, 30, 5)
         i += 1
 
-    if st.button('Introducir datos'):
-        st.write('Why hello there')
-    # e1, e2 = st.columns(2)
-    # # with e1:
-    # t1 = e1.slider('T1', 0, 130, 25)
-
-    # # with e2:
-    # t2 = e2.slider('T2', 0, 130, 25)
+    if st.button('Introducir datos y predecir roturas por zonas'):
+        new_set = pd.DataFrame(dict, index=[0])
+        st.write(new_set)
+        test_pred_model = multi_target_model.predict(new_set)
+        st.write(test_pred_model)
+    
