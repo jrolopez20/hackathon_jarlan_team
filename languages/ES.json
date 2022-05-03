@@ -6,8 +6,8 @@
     "introduction2": "A todo esto se suman los problemas de averías y reportes de fugas de agua que no se solucionan a tiempo, provocando una pérdida adicional de agua. \n Este trabajo trata de explicar esta debilidad y encontrar formas de prevenir estas fallas para contribuir al ahorro de este preciado recurso.",
     "what_is_the_problem": "¿Cuál es el problema?",
     "problem_to_solve": "Como prevenir las fugas de agua de una manera eficiente",
-    "problem_description1": "Con base en los datos recopilados por la JMAS (Junta Municipal de Agua y Saneamiento de Chihuahua) sobre los reportes de fugas, así como el historial de registros de roturas en la ciudad de Chihuahua durante el período de junio de 2018 a mayo de 2019, se puede realizar un estudio para analizar estos datos y ser capaz de identificar posibles soluciones.",
-    "problem_description2": "Para adentrarnos en el tema aquí les presentamos algunos registros de falta de agua en el período antes mencionado.",
+    "problem_description1": "Con base en los datos recopilados por la JMAS (Junta Municipal de Agua y Saneamiento de Chihuahua) sobre los reportes de fugas, así como el historial de registros de roturas en la ciudad de Chihuahua durante el período de junio de 2018 a mayo de 2019, así como el nivel de llenado de los tanques se puede realizar un estudio para analizar estos datos y ser capaz de identificar patrones que permitan predecir en tiempo útil las averías y ofrecer una respuesta rápida.",
+    "problem_description2": "Para adentrarnos en el tema aquí se presenta los registros de reportes de fuga de agua en el periodo antes mencionado.",
     "solution": "Solución",
     "solution1": "Con este trabajo ofrecemos una posible solución para mitigar y prevenir de forma eficiente todas las fugas de agua y contribuir a su conservación."
 }

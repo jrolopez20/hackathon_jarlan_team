@@ -131,13 +131,13 @@ cols1, cols2 = st.columns(2)
 with cols1:
     st.image(
         './resources/images/tanks.png',
-        caption='Fig 3. Tanks'
+        caption='Fig 2. Tanks distribution in the city'
     )
 
 with cols2:
     st.image(
         './resources/images/graph.png',
-        caption='Fig 4. Graph'
+        caption='Fig 3. Relation between each tanks'
     )
 
 """Luego teniendo el cuenta el nivel de llenado de cada uno de los tanques así como los reportes de llamdas
@@ -149,7 +149,7 @@ una llamada de reporte."""
 
 st.image(
         './resources/images/big-picture.png',
-        caption='Fig 5. Representación gráfica de la solución haciendo uso de técnicas de Machine learning'
+        caption='Fig 4. Graphic representation of the solution using Machine learning techniques'
     )
 
 """Y a partir de este herramienta que sea capás de identificar además la zona donde se produjo dicha avería 
@@ -235,6 +235,9 @@ st.write()
 # fig.set_title('title')
 
 # st.pyplot(plt)
+
+# """%s""" % translation['solution1']
+"""En el siguiente apartado podrá evaluar la aplicación del modelo:"""
 
 with st.expander("Evaluar entrada"):
     st.write('Configure el nivel de llenado de cada uno de los tanques y luego haga clic en el botón evaluar para conocer si existe alguna rotura o avería en alguna de las zonas')
