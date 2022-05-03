@@ -8,6 +8,9 @@
     "problem_to_solve": "Como prevenir las fugas de agua de una manera eficiente",
     "problem_description1": "Con base en los datos recopilados por la JMAS (Junta Municipal de Agua y Saneamiento de Chihuahua) sobre los reportes de fugas, así como el historial de registros de roturas en la ciudad de Chihuahua durante el período de junio de 2018 a mayo de 2019, así como el nivel de llenado de los tanques se puede realizar un estudio para analizar estos datos y ser capaz de identificar patrones que permitan predecir en tiempo útil las averías y ofrecer una respuesta rápida.",
     "problem_description2": "Para adentrarnos en el tema aquí se presenta los registros de reportes de fuga de agua en el periodo antes mencionado.",
+    "map_text": "Representación geográfica de los reportes de llamada en la ciudad de Chihuahua.",
     "solution": "Solución",
-    "solution1": "Con este trabajo ofrecemos una posible solución para mitigar y prevenir de forma eficiente todas las fugas de agua y contribuir a su conservación."
+    "solution1": "Con este trabajo ofrecemos una posible solución para mitigar y prevenir de forma eficiente todas las fugas de agua y contribuir a su conservación.",
+    "solution2": "A partir de la información recogida por los sensores en cada una de las estaciones de bombeo que se encuentran distribuidas en la ciudad como se puede ver en la Fig 2, es posible obtener un grafo como el de la Fig 3 donde se muestra la relación entre cada una de estas estaciones.",
+    "solution3": "Luego teniendo el cuenta el nivel de llenado de cada uno de los tanques así como los reportes de llamadas que se producen en la ciudad como se pueden ver en el mapa y haciendo uso de herramientas de aprendizaje de máquina es posible hacer predicciones con anterioridad de posibles averías incluso antes de que se produzca una llamada de reporte."
 }

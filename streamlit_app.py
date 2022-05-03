@@ -114,6 +114,8 @@ fig.update_xaxes(
 # fig = px.area(df, facet_col="company", facet_col_wrap=2)
 st.plotly_chart(fig, use_container_width=True)
 
+"""%s""" % translation['map_text']
+
 # Mapping data
 df_lack_water.rename(columns = {'lng':'lon'}, inplace = True)
 # df_water_leak.rename(columns = {'lng':'lon'}, inplace = True)
@@ -123,9 +125,7 @@ st.map(df_lack_water.sample(300))
 
 """%s""" % translation['solution1']
 
-"""A partir de la información recogida por los sensores en cada una de las estaciones de bombeo que se 
-encuentran distribuidas en la ciudad como se puede ver en la Fig 4, es posible obtener un grafo como el
-de la Fig 4 donde se muestra la relación entre cada una de estas estaciones"""
+"""%s""" % translation['solution2']
 
 cols1, cols2 = st.columns(2)
 with cols1:
@@ -140,20 +140,19 @@ with cols2:
         caption='Fig 3. Relation between each tanks'
     )
 
-"""Luego teniendo el cuenta el nivel de llenado de cada uno de los tanques así como los reportes de llamdas
-que se producen en la ciudad como se pueden ver en el mapa y haciendo uso de herramientas de aprendizaje de 
-maquina es posible hacer predicciones con anterioridad de posibles averías incluso antes de que se produzca 
-una llamada de reporte."""
+"""%s""" % translation['solution3']
 
 """### Machine Learning:"""
-
-st.image(
+s1, s2 = st.columns(2)
+with s1:
+    st.image(
         './resources/images/big-picture.png',
         caption='Fig 4. Graphic representation of the solution using Machine learning techniques'
     )
 
-"""Y a partir de este herramienta que sea capás de identificar además la zona donde se produjo dicha avería 
-a fin de que se puedan poner en práctica los procedimientos para darle solución en tiempo."""
+with s2:
+    """Y a partir de este herramienta que sea capás de identificar además la zona donde se produjo dicha avería 
+    a fin de que se puedan poner en práctica los procedimientos para darle solución en tiempo."""
 
 
 # Machine learning models
