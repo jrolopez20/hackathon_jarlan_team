@@ -279,7 +279,7 @@ with st.expander("""%s""" % translation['solution7']):
 
         new_set = new_set.apply(lambda x: x/30)
         new_prediction = multi_target_model.predict(new_set)
-        st.write(int(new_prediction[0][0][3]))
+        # st.write(int(new_prediction[0][0][3]))
         
         """%s""" % translation['error_msg']
         
