@@ -12,11 +12,15 @@ import json
 from helper import getData
 from sklearn import svm, datasets
 from sklearn.multioutput import MultiOutputClassifier
+<<<<<<< HEAD
 from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
 from sklearn.neighbors import RadiusNeighborsClassifier, KNeighborsClassifier
 from sklearn.tree import ExtraTreeClassifier, DecisionTreeClassifier
 from sklearn import preprocessing
 import random
+=======
+import base64
+>>>>>>> c341c3c7d8699753a516ec59afc9f8b202120d74
 
 # Reading datasets
 home = os.getcwd()
@@ -134,13 +138,13 @@ cols1, cols2 = st.columns(2)
 with cols1:
     st.image(
         './resources/images/tanks.png',
-        caption='Fig 3. Tanks'
+        caption='Fig 2. Tanks distribution in the city'
     )
 
 with cols2:
     st.image(
         './resources/images/graph.png',
-        caption='Fig 4. Graph'
+        caption='Fig 3. Relation between each tanks'
     )
 
 """Luego teniendo el cuenta el nivel de llenado de cada uno de los tanques así como los reportes de llamdas
@@ -152,16 +156,12 @@ una llamada de reporte."""
 
 st.image(
         './resources/images/big-picture.png',
-        caption='Fig 5. Representación gráfica de la solución haciendo uso de técnicas de Machine learning'
+        caption='Fig 4. Graphic representation of the solution using Machine learning techniques'
     )
 
 """Y a partir de este herramienta que sea capás de identificar además la zona donde se produjo dicha avería 
 a fin de que se puedan poner en práctica los procedimientos para darle solución en tiempo."""
 
-st.image(
-        './resources/images/zones.png',
-        caption='Fig 6. Distribución por zonas de abastecimiento de agua'
-    )
 
 # Machine learning models
 # modelSVM = svm.SVR(kernel='rbf', gamma=0.7, C=5.0, epsilon=0.6)
@@ -252,7 +252,11 @@ st.write(y_train)
 
 # st.pyplot(plt)
 
+# """%s""" % translation['solution1']
+"""En el siguiente apartado podrá evaluar la aplicación del modelo:"""
+
 with st.expander("Evaluar entrada"):
+    st.write('Configure el nivel de llenado de cada uno de los tanques y luego haga clic en el botón evaluar para conocer si existe alguna rotura o avería en alguna de las zonas')
     i = 0
     dict = {}
     e1, e2 = st.columns(2)
@@ -264,11 +268,48 @@ with st.expander("Evaluar entrada"):
             dict[c] = e2.slider(c, 0, 30, 5)
         i += 1
 
-    if st.button('Introducir datos y predecir roturas por zonas'):
+    if st.button('Evaluar'):
         new_set = pd.DataFrame(dict, index=[0])
+<<<<<<< HEAD
 
         new_set = new_set.apply(lambda x: x/30)
-        st.write(new_set)
-        test_pred_model = multi_target_model.predict(new_set)
-        st.write(test_pred_model)
+        # st.write(new_set)
+        new_prediction = multi_target_model.predict(new_set)
+        st.write(new_prediction)
     
+=======
+        
+        st.write('Las regiones marcadas presentan averías')
+        
+        st.markdown(
+            """
+            <style>
+            .container {
+                display: flex;
+            }
+            
+            .zone-active {
+                float: left;
+                position: absolute;
+                height: 100% !important;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+
+        st.markdown(
+            f"""
+            <div class="container">
+                <img src="data:image/png;base64,{base64.b64encode(open('./resources/images/zones.png', "rb").read()).decode()}">
+                <img class="zone-active" style="display: {'block' if new_prediction[0][0][0] == 1 else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z1.png', "rb").read()).decode()}">
+                <img class="zone-active" style="display: {'block' if new_prediction[0][0][1] == 1 else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z2.png', "rb").read()).decode()}">
+                <img class="zone-active" style="display: {'block' if new_prediction[0][0][2] == 1 else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z3.png', "rb").read()).decode()}">
+                <img class="zone-active" style="display: {'block' if new_prediction[0][0][3] == 1 else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z4.png', "rb").read()).decode()}">
+                <img class="zone-active" style="display: {'block' if new_prediction[0][0][4] == 1 else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z5.png', "rb").read()).decode()}">
+                <img class="zone-active" style="display: {'block' if new_prediction[0][0][5] == 1 else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z6.png', "rb").read()).decode()}">
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+>>>>>>> c341c3c7d8699753a516ec59afc9f8b202120d74
