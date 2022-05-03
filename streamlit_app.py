@@ -12,11 +12,11 @@ import json
 from helper import getData
 from sklearn import svm, datasets
 from sklearn.multioutput import MultiOutputClassifier
-
 from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
 from sklearn.neighbors import RadiusNeighborsClassifier, KNeighborsClassifier
 from sklearn.tree import ExtraTreeClassifier, DecisionTreeClassifier
 from sklearn import preprocessing
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, ConfusionMatrixDisplay
 import random
 
 import base64
@@ -43,6 +43,9 @@ with open(os.path.join(home, 'input', 'df_tanks.pickle'), 'rb') as handle:
 
 df_target5zone = pd.read_csv("./input/target1Zone.csv")
 df_target5zone['timestamp'] = df_target5zone['timestamp'].apply(lambda x: pd.Timestamp(x))
+# df_target5zone['callSum'] = df_target5zone['callSum'].apply(lambda x: x.strip(']['))
+# df_target5zone['callSum'] = df_target5zone['callSum'].apply(lambda x: x.split(', '))
+# df_target5zone['callSum'] = df_target5zone['callSum'].apply(lambda x: list(map(int, x)))
 
 # df_tanks = df_tanks.sample(5)
 
@@ -175,26 +178,28 @@ X = X.reset_index(drop = True)
 min_max_scaler = preprocessing.MinMaxScaler()
 X_scaled = min_max_scaler.fit_transform(X)
 X = pd.DataFrame(X_scaled, columns=X.columns)
-st.write(X)
+# st.write(X)
 
 y = df_target5zone[df_target5zone['timestamp'] >= pd.Timestamp('2018-06-07')]
 y = y[y['timestamp'] <= pd.Timestamp('2019-01-08')]
 y = y.iloc[index.indexer_between_time('8:00','21:00')]
 y = y.drop(columns = ['timestamp'])
 y = y.reset_index(drop = True)
+# st.write(y)
 
 X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, y, test_size = 0.3)
 
 # st.write(X_train.columns)
 # st.write(y_train)
 
-model = DecisionTreeClassifier(criterion='entropy')
+model = ExtraTreesClassifier(criterion='entropy')
 multi_target_model = MultiOutputClassifier(model)
 multi_target_model.fit(X_train, y_train)
 
 test_pred_model = multi_target_model.predict(X_test)
-st.write(sklearn.metrics.accuracy_score(y_test, test_pred_model))
-st.write(y_train)
+# st.write(sklearn.metrics.classification_report(y_test, test_pred_model))
+
+# st.pyplot(ConfusionMatrixDisplay(confusion_matrix(y_test,test_pred_model)).plot())
 
 # Testing with iris dataset
 # iris = datasets.load_iris()
@@ -270,11 +275,10 @@ with st.expander("Evaluar entrada"):
     if st.button('Evaluar'):
         new_set = pd.DataFrame(dict, index=[0])
 
-
         new_set = new_set.apply(lambda x: x/30)
         # st.write(new_set)
         new_prediction = multi_target_model.predict(new_set)
-        st.write(new_prediction)
+        st.write(int(new_prediction[0][0][3]))
         
         st.write('Las regiones marcadas presentan averías')
         
