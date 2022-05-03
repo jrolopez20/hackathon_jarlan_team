@@ -153,9 +153,10 @@ with cols2:
 
 """### Machine Learning:"""
 s1, s2 = st.columns(2)
+
 with s1:
     st.image(
-        './resources/images/big-picture.png',
+        './resources/images/big-picture-%s.png' % language,
         caption='Fig 4. Graphic representation of the solution using Machine learning techniques'
     )
 
