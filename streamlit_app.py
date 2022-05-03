@@ -123,6 +123,8 @@ fig.update_xaxes(
 # fig = px.area(df, facet_col="company", facet_col_wrap=2)
 st.plotly_chart(fig, use_container_width=True)
 
+"""%s""" % translation['map_text']
+
 # Mapping data
 df_lack_water.rename(columns = {'lng':'lon'}, inplace = True)
 # df_water_leak.rename(columns = {'lng':'lon'}, inplace = True)
@@ -132,9 +134,7 @@ st.map(df_lack_water.sample(300))
 
 """%s""" % translation['solution1']
 
-"""A partir de la información recogida por los sensores en cada una de las estaciones de bombeo que se 
-encuentran distribuidas en la ciudad como se puede ver en la Fig 4, es posible obtener un grafo como el
-de la Fig 4 donde se muestra la relación entre cada una de estas estaciones"""
+"""%s""" % translation['solution2']
 
 cols1, cols2 = st.columns(2)
 with cols1:
@@ -149,21 +149,18 @@ with cols2:
         caption='Fig 3. Relation between each tanks'
     )
 
-"""Luego teniendo el cuenta el nivel de llenado de cada uno de los tanques así como los reportes de llamdas
-que se producen en la ciudad como se pueden ver en el mapa y haciendo uso de herramientas de aprendizaje de 
-maquina es posible hacer predicciones con anterioridad de posibles averías incluso antes de que se produzca 
-una llamada de reporte."""
+"""%s""" % translation['solution3']
 
 """### Machine Learning:"""
-
-st.image(
+s1, s2 = st.columns(2)
+with s1:
+    st.image(
         './resources/images/big-picture.png',
         caption='Fig 4. Graphic representation of the solution using Machine learning techniques'
     )
 
-"""Y a partir de este herramienta que sea capás de identificar además la zona donde se produjo dicha avería 
-a fin de que se puedan poner en práctica los procedimientos para darle solución en tiempo."""
-
+with s2:
+    """%s""" % translation['solution4']
 
 # Machine learning models
 # modelSVM = svm.SVR(kernel='rbf', gamma=0.7, C=5.0, epsilon=0.6)
@@ -197,9 +194,14 @@ multi_target_model = MultiOutputClassifier(model)
 multi_target_model.fit(X_train, y_train)
 
 test_pred_model = multi_target_model.predict(X_test)
+
 # st.write(sklearn.metrics.classification_report(y_test, test_pred_model))
 
 # st.pyplot(ConfusionMatrixDisplay(confusion_matrix(y_test,test_pred_model)).plot())
+
+# st.write(sklearn.metrics.accuracy_score(y_test, test_pred_model))
+# st.write(y_train)
+
 
 # Testing with iris dataset
 # iris = datasets.load_iris()
@@ -256,11 +258,11 @@ test_pred_model = multi_target_model.predict(X_test)
 
 # st.pyplot(plt)
 
-# """%s""" % translation['solution1']
-"""En el siguiente apartado podrá evaluar la aplicación del modelo:"""
+"""%s""" % translation['solution5']
 
-with st.expander("Evaluar entrada"):
-    st.write('Configure el nivel de llenado de cada uno de los tanques y luego haga clic en el botón evaluar para conocer si existe alguna rotura o avería en alguna de las zonas')
+with st.expander("""%s""" % translation['solution7']):
+    """%s""" % translation['solution6']
+
     i = 0
     dict = {}
     e1, e2 = st.columns(2)
@@ -272,15 +274,14 @@ with st.expander("Evaluar entrada"):
             dict[c] = e2.slider(c, 0, 30, 5)
         i += 1
 
-    if st.button('Evaluar'):
+    if st.button("""%s""" % translation['evaluate']):
         new_set = pd.DataFrame(dict, index=[0])
 
         new_set = new_set.apply(lambda x: x/30)
-        # st.write(new_set)
         new_prediction = multi_target_model.predict(new_set)
         st.write(int(new_prediction[0][0][3]))
         
-        st.write('Las regiones marcadas presentan averías')
+        """%s""" % translation['error_msg']
         
         st.markdown(
             """
@@ -299,16 +300,23 @@ with st.expander("Evaluar entrada"):
             unsafe_allow_html=True
         )
 
+        # st.write(new_prediction[0][0][1], new_prediction[0][0][1] == '1')
+        # st.write(new_prediction[0][0][4], new_prediction[0][0][4] == '1')
+        # st.write(new_prediction[0][0][7], new_prediction[0][0][7] == '1')
+        # st.write(new_prediction[0][0][10], new_prediction[0][0][10] == '1')
+        # st.write(new_prediction[0][0][13], new_prediction[0][0][13] == '1')
+        # st.write(new_prediction[0][0][16], new_prediction[0][0][16] == '1')
+        
         st.markdown(
             f"""
             <div class="container">
                 <img src="data:image/png;base64,{base64.b64encode(open('./resources/images/zones.png', "rb").read()).decode()}">
-                <img class="zone-active" style="display: {'block' if new_prediction[0][0][0] == 1 else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z1.png', "rb").read()).decode()}">
-                <img class="zone-active" style="display: {'block' if new_prediction[0][0][1] == 1 else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z2.png', "rb").read()).decode()}">
-                <img class="zone-active" style="display: {'block' if new_prediction[0][0][2] == 1 else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z3.png', "rb").read()).decode()}">
-                <img class="zone-active" style="display: {'block' if new_prediction[0][0][3] == 1 else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z4.png', "rb").read()).decode()}">
-                <img class="zone-active" style="display: {'block' if new_prediction[0][0][4] == 1 else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z5.png', "rb").read()).decode()}">
-                <img class="zone-active" style="display: {'block' if new_prediction[0][0][5] == 1 else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z6.png', "rb").read()).decode()}">
+                <img class="zone-active" style="display: {'block' if new_prediction[0][0][1] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z1.png', "rb").read()).decode()}">
+                <img class="zone-active" style="display: {'block' if new_prediction[0][0][4] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z2.png', "rb").read()).decode()}">
+                <img class="zone-active" style="display: {'block' if new_prediction[0][0][7] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z3.png', "rb").read()).decode()}">
+                <img class="zone-active" style="display: {'block' if new_prediction[0][0][10] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z4.png', "rb").read()).decode()}">
+                <img class="zone-active" style="display: {'block' if new_prediction[0][0][13] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z5.png', "rb").read()).decode()}">
+                <img class="zone-active" style="display: {'block' if new_prediction[0][0][16] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z6.png', "rb").read()).decode()}">
             </div>
             """,
             unsafe_allow_html=True
