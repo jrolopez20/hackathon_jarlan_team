@@ -300,13 +300,6 @@ with st.expander("""%s""" % translation['solution7']):
             unsafe_allow_html=True
         )
 
-        # st.write(new_prediction[0][0][1], new_prediction[0][0][1] == '1')
-        # st.write(new_prediction[0][0][4], new_prediction[0][0][4] == '1')
-        # st.write(new_prediction[0][0][7], new_prediction[0][0][7] == '1')
-        # st.write(new_prediction[0][0][10], new_prediction[0][0][10] == '1')
-        # st.write(new_prediction[0][0][13], new_prediction[0][0][13] == '1')
-        # st.write(new_prediction[0][0][16], new_prediction[0][0][16] == '1')
-        
         st.markdown(
             f"""
             <div class="container">
