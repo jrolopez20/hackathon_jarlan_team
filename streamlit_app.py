@@ -12,7 +12,13 @@ import json
 from helper import getData
 from sklearn import svm, datasets
 from sklearn.multioutput import MultiOutputClassifier
-from sklearn.ensemble import RandomForestClassifier
+
+from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
+from sklearn.neighbors import RadiusNeighborsClassifier, KNeighborsClassifier
+from sklearn.tree import ExtraTreeClassifier, DecisionTreeClassifier
+from sklearn import preprocessing
+import random
+
 import base64
 
 # Reading datasets
@@ -35,7 +41,7 @@ with open(os.path.join(home, 'input', 'df_fuga_agua_v2.pickle'), 'rb') as handle
 with open(os.path.join(home, 'input', 'df_tanks.pickle'), 'rb') as handle:
     df_tanks = pickle.load(handle)
 
-df_target5zone = pd.read_csv("./input/target5Zone.csv")
+df_target5zone = pd.read_csv("./input/target1Zone.csv")
 df_target5zone['timestamp'] = df_target5zone['timestamp'].apply(lambda x: pd.Timestamp(x))
 
 # df_tanks = df_tanks.sample(5)
@@ -157,28 +163,37 @@ with s2:
 
 # Machine learning models
 # modelSVM = svm.SVR(kernel='rbf', gamma=0.7, C=5.0, epsilon=0.6)
-model = RandomForestClassifier()
+
 
 X = df_tanks[df_tanks['datetime'] >= pd.Timestamp('2018-06-07')]
 X = X[X['datetime'] <= pd.Timestamp('2019-01-08')]
+index = pd.DatetimeIndex(X['datetime'])
+X = X.iloc[index.indexer_between_time('8:00','21:00')]
 X = X.drop(columns = ['datetime'])
+X = X.reset_index(drop = True)
+min_max_scaler = preprocessing.MinMaxScaler()
+X_scaled = min_max_scaler.fit_transform(X)
+X = pd.DataFrame(X_scaled, columns=X.columns)
+st.write(X)
 
 y = df_target5zone[df_target5zone['timestamp'] >= pd.Timestamp('2018-06-07')]
 y = y[y['timestamp'] <= pd.Timestamp('2019-01-08')]
+y = y.iloc[index.indexer_between_time('8:00','21:00')]
 y = y.drop(columns = ['timestamp'])
 y = y.reset_index(drop = True)
 
-X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, y, test_size = 0.2)
+X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, y, test_size = 0.3)
 
 # st.write(X_train.columns)
 # st.write(y_train)
 
+model = DecisionTreeClassifier(criterion='entropy')
 multi_target_model = MultiOutputClassifier(model)
 multi_target_model.fit(X_train, y_train)
 
 test_pred_model = multi_target_model.predict(X_test)
 st.write(sklearn.metrics.accuracy_score(y_test, test_pred_model))
-st.write()
+st.write(y_train)
 
 # Testing with iris dataset
 # iris = datasets.load_iris()
@@ -253,9 +268,11 @@ with st.expander("Evaluar entrada"):
 
     if st.button('Evaluar'):
         new_set = pd.DataFrame(dict, index=[0])
-        # st.write(new_set)
-        new_prediction = multi_target_model.predict(new_set)        
 
+
+        new_set = new_set.apply(lambda x: x/30)
+        # st.write(new_set)
+        new_prediction = multi_target_model.predict(new_set)
         st.write(new_prediction)
         
         st.write('Las regiones marcadas presentan averías')
