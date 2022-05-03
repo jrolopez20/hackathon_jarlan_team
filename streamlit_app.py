@@ -12,15 +12,14 @@ import json
 from helper import getData
 from sklearn import svm, datasets
 from sklearn.multioutput import MultiOutputClassifier
-<<<<<<< HEAD
+
 from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
 from sklearn.neighbors import RadiusNeighborsClassifier, KNeighborsClassifier
 from sklearn.tree import ExtraTreeClassifier, DecisionTreeClassifier
 from sklearn import preprocessing
 import random
-=======
+
 import base64
->>>>>>> c341c3c7d8699753a516ec59afc9f8b202120d74
 
 # Reading datasets
 home = os.getcwd()
@@ -270,14 +269,12 @@ with st.expander("Evaluar entrada"):
 
     if st.button('Evaluar'):
         new_set = pd.DataFrame(dict, index=[0])
-<<<<<<< HEAD
+
 
         new_set = new_set.apply(lambda x: x/30)
         # st.write(new_set)
         new_prediction = multi_target_model.predict(new_set)
         st.write(new_prediction)
-    
-=======
         
         st.write('Las regiones marcadas presentan averías')
         
@@ -312,4 +309,3 @@ with st.expander("Evaluar entrada"):
             """,
             unsafe_allow_html=True
         )
->>>>>>> c341c3c7d8699753a516ec59afc9f8b202120d74
