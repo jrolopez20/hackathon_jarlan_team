@@ -128,7 +128,12 @@ st.plotly_chart(fig, use_container_width=True)
 # Mapping data
 df_lack_water.rename(columns = {'lng':'lon'}, inplace = True)
 # df_water_leak.rename(columns = {'lng':'lon'}, inplace = True)
-st.map(df_lack_water.sample(300))
+df_sample = df_lack_water.sample(300)
+df_sample = df_sample[df_sample['lat'] >= 28.5753578]
+df_sample = df_sample[df_sample['lat'] <= 28.8268538]
+df_sample = df_sample[df_sample['lon'] >= -106.1814025]
+df_sample = df_sample[df_sample['lon'] <= -105.9309620]
+st.map(df_sample)
 
 """# %s""" % translation['solution']
 
