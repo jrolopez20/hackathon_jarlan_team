@@ -153,9 +153,10 @@ with cols2:
 
 """### Machine Learning:"""
 s1, s2 = st.columns(2)
+
 with s1:
     st.image(
-        './resources/images/big-picture.png',
+        './resources/images/big-picture-%s.png' % language,
         caption='Fig 4. Graphic representation of the solution using Machine learning techniques'
     )
 
@@ -239,10 +240,9 @@ with st.expander("""%s""" % translation['solution7']):
         new_set = new_set.apply(lambda x: x/100)
 
         new_prediction = multi_target_model.predict(new_set)
-        # st.write(int(new_prediction[0][0][3]))
         
         """%s""" % translation['error_msg']
-        
+        st.write(new_prediction)
         st.markdown(
             """
             <style>

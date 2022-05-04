@@ -14,7 +14,7 @@
     "solution2": "From the information collected by the sensors in each of the pumping stations that are distributed in the city as can be seen in Fig 2, it is possible to obtain a graph like the one in Fig 3 where the relationship between each of these stations.",
     "solution3": "Then, taking into account the filling level of each of the tanks, as well as the reports of calls that occur in the city, as can be seen on the map, and using machine learning tools, it is possible to make predictions in advance of possible breakdowns even before a report call occurs.",
     "solution4": "And from this tool that could be capable of also identifying the area where said fault occurred so that procedures can be put into practice to solve it in time.",
-    "solution5": "In the following section you can evaluate the application of the model:",
+    "solution5": "Now it's your turn, you can have the experience of feeding a machine learning model with the data you want to test. You just have to set a new filling level for each of the tanks",
     "solution6": "Configure the filling level of each one of the tanks and then click on the evaluate button to know if there is any breakage or failure in any of the zones.",
     "solution7": "Evaluate input",
     "evaluate": "Evaluate",
