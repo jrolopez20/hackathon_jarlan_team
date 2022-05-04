@@ -246,7 +246,7 @@ with st.expander("""%s""" % translation['solution7']):
         new_prediction = multi_target_model.predict(new_set)
         
         """%s""" % translation['error_msg']
-        st.write(new_prediction)
+        
         st.markdown(
             """
             <style>
