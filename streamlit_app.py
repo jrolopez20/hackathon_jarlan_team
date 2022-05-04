@@ -127,7 +127,12 @@ st.plotly_chart(fig, use_container_width=True)
 # Mapping data
 df_lack_water.rename(columns = {'lng':'lon'}, inplace = True)
 # df_water_leak.rename(columns = {'lng':'lon'}, inplace = True)
-st.map(df_lack_water.sample(300))
+df_sample = df_lack_water.sample(300)
+df_sample = df_sample[df_sample['lat'] >= 28.5753578]
+df_sample = df_sample[df_sample['lat'] <= 28.8268538]
+df_sample = df_sample[df_sample['lon'] >= -106.1814025]
+df_sample = df_sample[df_sample['lon'] <= -105.9309620]
+st.map(df_sample)
 
 """# %s""" % translation['solution']
 
@@ -189,7 +194,7 @@ X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, y
 # st.write(X_train.columns)
 # st.write(y_train)
 
-model = ExtraTreesClassifier(criterion='entropy')
+model = ExtraTreesClassifier()
 multi_target_model = MultiOutputClassifier(model)
 multi_target_model.fit(X_train, y_train)
 
@@ -202,63 +207,20 @@ test_pred_model = multi_target_model.predict(X_test)
 # st.write(sklearn.metrics.accuracy_score(y_test, test_pred_model))
 # st.write(y_train)
 
-
-# Testing with iris dataset
-# iris = datasets.load_iris()
-# X = iris.data[:, :2]
-# y = iris.target
-
-# def make_meshgrid(x, y, h=0.02):
-#     """Create a mesh of points to plot in
-
-#     Parameters
-#     ----------
-#     x: data to base x-axis meshgrid on
-#     y: data to base y-axis meshgrid on
-#     h: stepsize for meshgrid, optional
-
-#     Returns
-#     -------
-#     xx, yy : ndarray
-#     """
-#     x_min, x_max = x.min() - 1, x.max() + 1
-#     y_min, y_max = y.min() - 1, y.max() + 1
-#     xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
-#     return xx, yy
-
-# def plot_contours(ax, clf, xx, yy, **params):
-#     """Plot the decision boundaries for a classifier.
-
-#     Parameters
-#     ----------
-#     ax: matplotlib axes object
-#     clf: a classifier
-#     xx: meshgrid ndarray
-#     yy: meshgrid ndarray
-#     params: dictionary of params to pass to contourf, optional
-#     """
-#     Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
-#     Z = Z.reshape(xx.shape)
-#     out = ax.contourf(xx, yy, Z, **params)
-#     return out
-
-# modelSVM.fit(X,y)
-# X0, X1 = X[:, 0], X[:, 1]
-# xx, yy = make_meshgrid(X0, X1)
-# fig = plt.axes()
-# plot_contours(fig, modelSVM, xx, yy, cmap=plt.cm.coolwarm, alpha=0.8)
-# fig.scatter(X0, X1, c=y, cmap=plt.cm.coolwarm, s=20, edgecolors="k")
-# fig.set_xlim(xx.min(), xx.max())
-# fig.set_ylim(yy.min(), yy.max())
-# fig.set_xlabel("Sepal length")
-# fig.set_ylabel("Sepal width")
-# fig.set_xticks(())
-# fig.set_yticks(())
-# fig.set_title('title')
-
-# st.pyplot(plt)
-
 """%s""" % translation['solution5']
+
+tanks_to_display = {
+    'Campanario': 'Campanario',
+    'Tjardines': 'Jardines',
+    'TqCerroGde': 'Cerro Grande',
+    'TqEsperanz': 'Esperanza',
+    'TqColina': 'Colina',
+    'TqSaucito': 'Saucito',
+    'TqPalmaRea': 'Palma Real',
+    'TqLomasUni': 'Lomas Universidad',
+    'TqMontecar': 'Montecarlo',
+    'TqAldabas': 'Aldabas'
+}
 
 with st.expander("""%s""" % translation['solution7']):
     """%s""" % translation['solution6']
@@ -267,17 +229,20 @@ with st.expander("""%s""" % translation['solution7']):
     dict = {}
     e1, e2 = st.columns(2)
 
-    for c in X_train.columns:
+    for c in tanks_to_display.keys():
         if i % 2 == 0:
-            dict[c] = e1.slider(c, 0, 30, 7)
+            dict[c] = e1.slider(tanks_to_display[c], 0, 100, 0, format='%d%%')
         else:
-            dict[c] = e2.slider(c, 0, 30, 5)
+            dict[c] = e2.slider(tanks_to_display[c], 0, 100, 0, format='%d%%')
         i += 1
+    
+    for c in [item for item in list(X_train.columns) if item not in list(tanks_to_display.keys())]:
+        dict[c] = 40
 
     if st.button("""%s""" % translation['evaluate']):
         new_set = pd.DataFrame(dict, index=[0])
+        new_set = new_set.apply(lambda x: x/100)
 
-        new_set = new_set.apply(lambda x: x/30)
         new_prediction = multi_target_model.predict(new_set)
         
         """%s""" % translation['error_msg']
