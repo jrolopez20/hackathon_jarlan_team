@@ -248,30 +248,31 @@ if st.button("""%s""" % translation['evaluate']):
     """%s""" % translation['error_msg']
     st.write(new_prediction)
     # st.markdown(
+    #     """
     #     <style>
     #     .container {
     #         display: flex;
     #     }
+    #     """
         
     #     """%s""" % translation['error_msg']
+    # )
+    st.markdown(
+        """
+        <style>
+        .container {
+            display: flex;
+        }
         
-        # st.markdown(
-            
-        #     <style>
-        #     .container {
-        #         display: flex;
-        #     }
-            
-        #     .zone-active {
-        #         float: left;
-        #         position: absolute;
-        #         height: 100% !important;
-        #     }
-        #     </style>
-        #     """,
-        #     unsafe_allow_html=True
-        #     """
-        # )
+        .zone-active {
+            float: left;
+            position: absolute;
+            height: 100% !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
     st.markdown(
         f"""
