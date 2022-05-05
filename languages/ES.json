@@ -14,10 +14,10 @@
     "solution2": "A partir de la información recogida por los sensores en cada una de las estaciones de bombeo que se encuentran distribuidas en la ciudad como se puede ver en la Fig 2, es posible obtener un grafo como el de la Fig 3 donde se muestra la relación entre cada una de estas estaciones.",
     "solution3": "Luego teniendo el cuenta el nivel de llenado de cada uno de los tanques así como los reportes de llamadas que se producen en la ciudad como se pueden ver en el mapa y haciendo uso de herramientas de aprendizaje de máquina es posible hacer predicciones con anterioridad de posibles averías incluso antes de que se produzca una llamada de reporte.",
     "solution4": "Y a partir de este herramienta que sea capás de identificar además la zona donde se produjo dicha avería a fin de que se puedan poner en práctica los procedimientos para darle solución en tiempo.",
-    "solution5": "Ahora es su turno, podrá tener la experiencia de alimentar un modelo de Machine Learning con los datos que desee probar. Sólo debes establecer un nuevo nivel de llenado de cada uno de los tanques",
+    "solution5": "Ahora es su turno 😉, podrá tener la experiencia de alimentar un modelo de Machine Learning con los datos que desee probar. Sólo debes establecer un nuevo nivel de llenado de cada uno de los tanques. 👇",
     "solution6": "Configure el nivel de llenado de cada uno de los tanques y luego haga clic en el botón evaluar para conocer si existe alguna rotura o avería en alguna de las zonas.",
-    "solution7": "Evaluar entrada",
-    "evaluate": "Evaluar",
+    "solution7": "🧮 Evaluar entrada",
+    "evaluate": "Evaluar 🧪",
     "error_msg": "Las regiones marcadas presentan averías"
 
 }

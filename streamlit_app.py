@@ -25,13 +25,12 @@ import base64
 home = os.getcwd()
 
 st.set_page_config(
-     page_title="Smart Water Management in Chihuahua",
-    #  page_icon="🧊",
-     layout="wide",
-     initial_sidebar_state="expanded",
-     menu_items={
+    page_title="Smart Water Management in Chihuahua",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
          'About': "This project tend to describes the current situation of the water supply in Chihuahua and how to contribute to beat this problem"
-     }
+    }
  )
 
 with open(os.path.join(home, 'input', 'df_falta_agua_v2.pickle'), 'rb') as handle:
@@ -255,15 +254,24 @@ if st.button("""%s""" % translation['evaluate']):
             display: flex;
         }
         
-        .zone-active {
-            float: left;
-            position: absolute;
-            height: 100% !important;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+        """%s""" % translation['error_msg']
+        
+        st.markdown(
+            """
+            <style>
+            .container {
+                display: flex;
+            }
+            
+            .zone-active {
+                float: left;
+                position: absolute;
+                height: 100% !important;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
 
     st.markdown(
         f"""
