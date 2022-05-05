@@ -208,6 +208,10 @@ test_pred_model = multi_target_model.predict(X_test)
 # st.write(y_train)
 
 """%s""" % translation['solution5']
+st.image(
+        './resources/images/green-arrow-down.png',
+        caption='Fig 2. Tanks distribution in the city'
+    )
 
 tanks_to_display = {
     'Campanario': 'Campanario',
