@@ -212,7 +212,7 @@ test_pred_model = multi_target_model.predict(X_test)
 col_ia1, col_ia2 = st.columns([4, 1])
 col_ia2.image(
         './resources/images/ia.jfif',
-        # caption='Fig 3. Relation between each tanks'
+        caption="Fig 5. Your turn to use Machine Learning"
     )
 
 with col_ia1:
