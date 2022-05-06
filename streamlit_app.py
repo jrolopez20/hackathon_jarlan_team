@@ -222,59 +222,69 @@ tanks_to_display = {
     'TqAldabas': 'Aldabas'
 }
 
-with st.expander("""%s""" % translation['solution7']):
-    """%s""" % translation['solution6']
+# with st.expander("""%s""" % translation['solution7']):
+"""%s""" % translation['solution6']
 
-    i = 0
-    dict = {}
-    e1, e2 = st.columns(2)
+i = 0
+dict = {}
+e1, e2 = st.columns(2)
 
-    for c in tanks_to_display.keys():
-        if i % 2 == 0:
-            dict[c] = e1.slider(tanks_to_display[c], 0, 100, 0, format='%d%%')
-        else:
-            dict[c] = e2.slider(tanks_to_display[c], 0, 100, 0, format='%d%%')
-        i += 1
+for c in tanks_to_display.keys():
+    if i % 2 == 0:
+        dict[c] = e1.slider(tanks_to_display[c], 0, 100, 0, format='%d%%')
+    else:
+        dict[c] = e2.slider(tanks_to_display[c], 0, 100, 0, format='%d%%')
+    i += 1
+
+for c in [item for item in list(X_train.columns) if item not in list(tanks_to_display.keys())]:
+    dict[c] = 40
+
+if st.button("""%s""" % translation['evaluate']):
+    new_set = pd.DataFrame(dict, index=[0])
+    new_set = new_set.apply(lambda x: x/100)
+
+    new_prediction = multi_target_model.predict(new_set)
     
-    for c in [item for item in list(X_train.columns) if item not in list(tanks_to_display.keys())]:
-        dict[c] = 40
-
-    if st.button("""%s""" % translation['evaluate']):
-        new_set = pd.DataFrame(dict, index=[0])
-        new_set = new_set.apply(lambda x: x/100)
-
-        new_prediction = multi_target_model.predict(new_set)
+    """%s""" % translation['error_msg']
+    st.write(new_prediction)
+    # st.markdown(
+    #     """
+    #     <style>
+    #     .container {
+    #         display: flex;
+    #     }
+    #     """
         
-        """%s""" % translation['error_msg']
+    #     """%s""" % translation['error_msg']
+    # )
+    st.markdown(
+        """
+        <style>
+        .container {
+            display: flex;
+        }
         
-        st.markdown(
-            """
-            <style>
-            .container {
-                display: flex;
-            }
-            
-            .zone-active {
-                float: left;
-                position: absolute;
-                height: 100% !important;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
+        .zone-active {
+            float: left;
+            position: absolute;
+            height: 100% !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
-        st.markdown(
-            f"""
-            <div class="container">
-                <img src="data:image/png;base64,{base64.b64encode(open('./resources/images/zones.png', "rb").read()).decode()}">
-                <img class="zone-active" style="display: {'block' if new_prediction[0][0][1] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z1.png', "rb").read()).decode()}">
-                <img class="zone-active" style="display: {'block' if new_prediction[0][0][4] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z2.png', "rb").read()).decode()}">
-                <img class="zone-active" style="display: {'block' if new_prediction[0][0][7] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z3.png', "rb").read()).decode()}">
-                <img class="zone-active" style="display: {'block' if new_prediction[0][0][10] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z4.png', "rb").read()).decode()}">
-                <img class="zone-active" style="display: {'block' if new_prediction[0][0][13] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z5.png', "rb").read()).decode()}">
-                <img class="zone-active" style="display: {'block' if new_prediction[0][0][16] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z6.png', "rb").read()).decode()}">
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+    st.markdown(
+        f"""
+        <div class="container">
+            <img src="data:image/png;base64,{base64.b64encode(open('./resources/images/zones.png', "rb").read()).decode()}">
+            <img class="zone-active" style="display: {'block' if new_prediction[0][0][1] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z1.png', "rb").read()).decode()}">
+            <img class="zone-active" style="display: {'block' if new_prediction[0][0][4] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z2.png', "rb").read()).decode()}">
+            <img class="zone-active" style="display: {'block' if new_prediction[0][0][7] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z3.png', "rb").read()).decode()}">
+            <img class="zone-active" style="display: {'block' if new_prediction[0][0][10] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z4.png', "rb").read()).decode()}">
+            <img class="zone-active" style="display: {'block' if new_prediction[0][0][13] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z5.png', "rb").read()).decode()}">
+            <img class="zone-active" style="display: {'block' if new_prediction[0][0][16] == '1' else 'none'};" src="data:image/png;base64,{base64.b64encode(open('./resources/images/z6.png', "rb").read()).decode()}">
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
