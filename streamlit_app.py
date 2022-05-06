@@ -52,7 +52,7 @@ df_target5zone['timestamp'] = df_target5zone['timestamp'].apply(lambda x: pd.Tim
 # st.dataframe(df_tanks)
 
 # Sidebar
-st.sidebar.write("""# *Smart Water Management* """)
+st.sidebar.write("""# *Smart Water Management by Machine Learning* """)
 
 language = st.sidebar.selectbox('Select language', ('EN', 'ES'))
 
@@ -68,7 +68,9 @@ st.sidebar.write("""
 	""" % translation['developed_by'])
 
 
-st.write("""# %s""" % (translation['actual_situation']))
+st.write("""# Smart Water Management by Machine Learning""")
+st.write("""## %s""" % (translation['actual_situation']))
+
 col1, col2 = st.columns(2)
 with col1:
     """%s""" % translation['introduction1']
@@ -87,7 +89,7 @@ with col2:
     # )
 
     
-"""# %s""" % translation['what_is_the_problem']
+"""## %s""" % translation['what_is_the_problem']
 
 """## %s""" % translation['problem_to_solve']
 
@@ -134,7 +136,7 @@ df_sample = df_sample[df_sample['lon'] >= -106.1814025]
 df_sample = df_sample[df_sample['lon'] <= -105.9309620]
 st.map(df_sample)
 
-"""# %s""" % translation['solution']
+"""## %s""" % translation['solution']
 
 """%s""" % translation['solution1']
 
@@ -207,7 +209,17 @@ test_pred_model = multi_target_model.predict(X_test)
 # st.write(sklearn.metrics.accuracy_score(y_test, test_pred_model))
 # st.write(y_train)
 
-"""%s""" % translation['solution5']
+col_ia1, col_ia2 = st.columns([4, 1])
+col_ia2.image(
+        './resources/images/ia.jfif',
+        # caption='Fig 3. Relation between each tanks'
+    )
+
+with col_ia1:
+    """%s""" % translation['solution5']
+
+    """%s""" % translation['solution6']
+
 
 tanks_to_display = {
     'Campanario': 'Campanario',
@@ -221,9 +233,6 @@ tanks_to_display = {
     'TqMontecar': 'Montecarlo',
     'TqAldabas': 'Aldabas'
 }
-
-# with st.expander("""%s""" % translation['solution7']):
-"""%s""" % translation['solution6']
 
 i = 0
 dict = {}
