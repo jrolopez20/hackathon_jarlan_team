@@ -17,7 +17,7 @@
     "solution5": "Ahora es su turno 😉, podrá tener la experiencia de alimentar un modelo de Machine Learning con los datos que desee probar. Sólo debes establecer un nuevo nivel de llenado de cada uno de los tanques. 👇",
     "solution6": "Configure el nivel de llenado de cada uno de los tanques y luego haga clic en el botón evaluar para conocer si existe alguna rotura o avería en alguna de las zonas.",
     "solution7": "🧮 Evaluar entrada",
-    "evaluate": "Evaluar 🧪",
+    "evaluate": "Correr Machine Learning",
     "error_msg": "Las regiones marcadas presentan averías"
 
 }

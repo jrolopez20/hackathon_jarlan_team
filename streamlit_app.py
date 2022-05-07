@@ -209,17 +209,13 @@ test_pred_model = multi_target_model.predict(X_test)
 # st.write(sklearn.metrics.accuracy_score(y_test, test_pred_model))
 # st.write(y_train)
 
-col_ia1, col_ia2 = st.columns([4, 1])
-col_ia2.image(
-        './resources/images/ia.jfif',
-        caption="Fig 5. Your turn to use Machine Learning"
+"""%s""" % translation['solution5']
+
+st.image(
+        './resources/images/your-turn-%s.png' % language
     )
 
-with col_ia1:
-    """%s""" % translation['solution5']
-
-    """%s""" % translation['solution6']
-
+"""%s""" % translation['solution6']
 
 tanks_to_display = {
     'Campanario': 'Campanario',

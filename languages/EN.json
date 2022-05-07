@@ -17,7 +17,7 @@
     "solution5": "Now it's your turn 😉, you can have the experience of feeding a machine learning model with the data you want to test. You just have to set a new filling level for each of the tanks. 👇",
     "solution6": "Configure the filling level of each one of the tanks and then click on the evaluate button to know if there is any breakage or failure in any of the zones.",
     "solution7": "🧮 Evaluate input",
-    "evaluate": "Evaluate 🧪",
+    "evaluate": "Run Machine Learning",
     "error_msg": "The selected areas have problems"
 
 }
